@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Graduation</string>
+    <string name="CreateAdvertViewPleaseEnterDescription">Lütfen ilan açıklamanızı giriniz... (En fazla 1000 karakter)</string>
+    <string name="CreateAdvertViewUseLocationInfo">Konum bilgisi kullan...</string>
+    <string name="CreateAdvertViewUseDifferentPhone">Farklı bir telefon numarası kullan...</string>
+    <string name="CreateAdvertViewUseDifferentMail">Farklı bir mail adresi kullan...</string>
+    <string name="SignIn"><u>Üye Ol!</u></string>
+    <string name="UserName">Kullanıcı Adı</string>
+    <string name="Password">Şifre</string>
+    <string name="PasswordConfirm">Şifre Onayla</string>
+    <string name="LogIn">Giriş Yap</string>
+    <string name="Email">e-Mail Adresi</string>
+    <string name="Phone">Telefon Numarası</string>
+    <string name="NameSurname">Ad Soyad</string>
+
+</resources>
