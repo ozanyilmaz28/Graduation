@@ -36,6 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:clickable="true"
-        android:hint="@string/SignIn" />
+        android:hint="@string/SignUp" />
 
 </LinearLayout>

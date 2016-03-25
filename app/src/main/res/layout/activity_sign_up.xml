@@ -9,41 +9,41 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.graduationteam.graduation.SignInActivity">
+    tools:context=".SignUpActivity">
 
     <EditText
-        android:id="@+id/SignInUserName"
+        android:id="@+id/SignUpUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/UserName" />
 
     <EditText
-        android:id="@+id/SignInNameSurname"
+        android:id="@+id/SignUpNameSurname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/NameSurname" />
 
     <EditText
-        android:id="@+id/SignInEmail"
+        android:id="@+id/SignUpEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Email" />
 
     <EditText
-        android:id="@+id/SigInPhoneNumber"
+        android:id="@+id/SignUpPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Phone" />
 
 
     <EditText
-        android:id="@+id/SignInPassword"
+        android:id="@+id/SignUpPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Password" />
 
     <EditText
-        android:id="@+id/SignInPasswordConfirm"
+        android:id="@+id/SignUpPasswordConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/PasswordConfirm" />
@@ -51,7 +51,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/SignIn" />
+        android:text="@string/SignUp" />
 
 
 </LinearLayout>

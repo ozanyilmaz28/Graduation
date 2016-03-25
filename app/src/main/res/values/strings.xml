@@ -4,7 +4,7 @@
     <string name="CreateAdvertViewUseLocationInfo">Konum bilgisi kullan...</string>
     <string name="CreateAdvertViewUseDifferentPhone">Farklı bir telefon numarası kullan...</string>
     <string name="CreateAdvertViewUseDifferentMail">Farklı bir mail adresi kullan...</string>
-    <string name="SignIn"><u>Üye Ol!</u></string>
+    <string name="SignUp"><u>Üye Ol!</u></string>
     <string name="UserName">Kullanıcı Adı</string>
     <string name="Password">Şifre</string>
     <string name="PasswordConfirm">Şifre Onayla</string>
