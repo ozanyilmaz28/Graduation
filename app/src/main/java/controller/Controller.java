@@ -2,6 +2,7 @@ package controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import entities.UserInfo;
 
@@ -12,16 +13,16 @@ public class Controller {
 
     public boolean isUserLoggedIn(Context con_) {
 
-        SharedPreferences pref = con_.getSharedPreferences("LoggedUserInformation", 0);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(con_);
         SharedPreferences.Editor editor_ = pref.edit();
 
         if (pref.getBoolean("IsUserLoggedIn", false) != false) {
 
-            UserInfo info_ = new UserInfo();
-            UserInfo.setUserID(pref.getInt("LoggedUserID", 0));
-            UserInfo.setUserName(pref.getString("LoggedUserName", ""));
-            UserInfo.setEmail(pref.getString("LoggedEmail", ""));
-            UserInfo.setPhone(pref.getString("LoggedPhone", ""));
+            UserInfo.UserID = pref.getLong("UserID", 0);
+            UserInfo.UserName = pref.getString("UserName", "");
+            UserInfo.NameSurname = pref.getString("NameSurname", "");
+            UserInfo.Email = pref.getString("Email", "");
+            UserInfo.Phone = pref.getString("Phone", "");
 
             return true;
         } else

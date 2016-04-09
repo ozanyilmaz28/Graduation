@@ -7,7 +7,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 public class WebServiceMethod {
-    public SoapObject request = null, objMain, objChild, objChild2;
+    public SoapObject request = null, objMain, objResult, objResultData, objResultDetailsData;
     public SoapPrimitive response = null;
     public SoapSerializationEnvelope envelope = null;
     public HttpTransportSE androidHttpTransport = null;
