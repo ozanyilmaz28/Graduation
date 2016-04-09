@@ -18,10 +18,10 @@ public class Controller {
         if (pref.getBoolean("IsUserLoggedIn", false) != false) {
 
             UserInfo info_ = new UserInfo();
-            info_.setUserID(pref.getInt("LoggedUserID", 0));
-            info_.setUserName(pref.getString("LoggedUserName", ""));
-            info_.setEmail(pref.getString("LoggedEmail", ""));
-            info_.setPhone(pref.getString("LoggedPhone", ""));
+            UserInfo.setUserID(pref.getInt("LoggedUserID", 0));
+            UserInfo.setUserName(pref.getString("LoggedUserName", ""));
+            UserInfo.setEmail(pref.getString("LoggedEmail", ""));
+            UserInfo.setPhone(pref.getString("LoggedPhone", ""));
 
             return true;
         } else
