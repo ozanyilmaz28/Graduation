@@ -77,8 +77,6 @@ public class LogInActivity extends AppCompatActivity {
                 if (Boolean.parseBoolean(method.objResult.getProperty("Success").toString())) {
                     method.objResultData = (SoapObject) method.objResult.getProperty("Data");
 
-                    Toast.makeText(LogInActivity.this, method.objResultData.getProperty("USER_EMAIL").toString(), Toast.LENGTH_SHORT).show();
-
                     UserInfo.UserID = Long.parseLong(method.objResultData.getProperty("USER_ID").toString());
                     UserInfo.UserName = method.objResultData.getProperty("USER_CODE").toString();
                     UserInfo.NameSurname = method.objResultData.getProperty("USER_NAMESURNAME").toString();
