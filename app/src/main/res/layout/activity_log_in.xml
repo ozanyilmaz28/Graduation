@@ -15,7 +15,9 @@
         android:id="@+id/LoginUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/UserName" />
+        android:hint="@string/UserName"
+        android:maxLength="30"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/LoginPassword"
@@ -23,7 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/Password"
-        android:password="true" />
+        android:maxLength="30"
+        android:password="true"
+        android:singleLine="true" />
 
     <Button
         android:id="@+id/LogInButton"

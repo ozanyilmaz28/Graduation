@@ -12,38 +12,44 @@ import controller.Controller;
 
 public class MainList extends AppCompatActivity {
 
+    Button btnCategory, btnCreateAdvert;
+    GridView gridView;
+    Intent intent;
+
+    Controller controller_;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_list);
 
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        gridView = (GridView) findViewById(R.id.gridView);
+        btnCategory = (Button) findViewById(R.id.btnCategory);
+        btnCreateAdvert = (Button) findViewById(R.id.btnCreateAdvert);
+
         gridView.setAdapter(new ImageAdapter(this));
 
-        Button btnCategory = (Button) findViewById(R.id.btnCategory);
         btnCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iCategoryList_ = new Intent(MainList.this, CategoryListActivity.class);
-                startActivity(iCategoryList_);
+                intent = new Intent(MainList.this, CategoryListActivity.class);
+                startActivity(intent);
 
             }
         });
 
-        Button btnCreateAdvert = (Button) findViewById(R.id.btnCreateAdvert);
         btnCreateAdvert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller controller_ = new Controller();
+                controller_ = new Controller();
                 if (controller_.isUserLoggedIn(getApplicationContext())) {
-                    Intent iCreateAdvert_ = new Intent(MainList.this, CreateAdvertActivity.class);
-                    startActivity(iCreateAdvert_);
+                    intent = new Intent(MainList.this, CreateAdvertActivity.class);
+                    startActivity(intent);
                 } else {
-                    Intent iLogin_ = new Intent(MainList.this, LogInActivity.class);
-                    startActivity(iLogin_);
+                    intent = new Intent(MainList.this, LogInActivity.class);
+                    startActivity(intent);
                 }
             }
         });
-
     }
 }
