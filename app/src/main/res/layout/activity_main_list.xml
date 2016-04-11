@@ -29,7 +29,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorAccent"
         android:gravity="center"
@@ -39,26 +39,28 @@
             android:id="@+id/btnCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ara" />
+            android:drawableTop="@drawable/iconsearch" />
 
 
         <Button
             android:id="@+id/btnCreateAdvert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="İlan Ver" />
+            android:drawableTop="@drawable/iconplus" />
 
 
         <Button
+            android:id="@+id/btnMyPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kişisel" />
+            android:drawableTop="@drawable/iconpersonel" />
 
 
         <Button
+            android:id="@+id/btnSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ayarlar" />
+            android:drawableTop="@drawable/iconsettings" />
 
 
     </LinearLayout>
