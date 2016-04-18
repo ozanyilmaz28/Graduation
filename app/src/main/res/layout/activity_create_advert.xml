@@ -64,6 +64,7 @@
         android:hint="@string/CreateAdvertViewUseLocationInfo" />
 
     <Button
+        android:id="@+id/pageCreateAdvertBtnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
