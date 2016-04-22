@@ -13,4 +13,24 @@
     <string name="Phone">Telefon Numarası</string>
     <string name="NameSurname">Ad Soyad</string>
 
+    <string-array name="MainCategories">
+        <item>Ana Kategori Seçiniz...</item>
+        <item>Kiralık Ev</item>
+        <item>Ev Eşyası</item>
+        <item>Ev Arkadaşı</item>
+        <item>Elektronik Eşya</item>
+        <item>Diğer</item>
+    </string-array>
+
+    <array name="MainCategoriyIcons">
+        <item>@drawable/iconcategorypleaseselect</item>
+        <item>@drawable/iconcategoryhouse</item>
+        <item>@drawable/iconcategoryfurniture</item>
+        <item>@drawable/iconcategoryhomemate</item>
+        <item>@drawable/iconcategoryelectronic</item>
+        <item>@drawable/iconcategorybook</item>
+        <item>@drawable/iconcategoryothers</item>
+    </array>
+
+
 </resources>

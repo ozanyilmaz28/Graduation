@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -35,16 +35,25 @@
 
     </Spinner>
 
+    <Spinner
+        android:id="@+id/createAdvertSubCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+
     <EditText
+        android:id="@+id/pageCreateAdvertEdtDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
         android:hint="@string/CreateAdvertViewPleaseEnterDescription"
-        android:lines="3"
+        android:lines="5"
         android:maxLength="1000"
         android:maxLines="10" />
 
     <EditText
+        android:id="@+id/pageCreateAdvertEdtPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/CreateAdvertViewUseDifferentPhone"
@@ -52,6 +61,7 @@
         android:singleLine="true" />
 
     <EditText
+        android:id="@+id/pageCreateAdvertEdtMail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/CreateAdvertViewUseDifferentMail"

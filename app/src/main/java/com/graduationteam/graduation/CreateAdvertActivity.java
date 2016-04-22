@@ -12,8 +12,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -25,51 +26,78 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import adapters.SpinnerAdapter;
 import entities.UserInfo;
 import entities.WebServiceMethod;
 
 public class CreateAdvertActivity extends Activity {
 
+    public static int[] categoryIcons_ = {R.drawable.iconcategorypleaseselect,
+            R.drawable.iconcategoryhouse,
+            R.drawable.iconcategoryfurniture,
+            R.drawable.iconcategoryhomemate,
+            R.drawable.iconcategoryelectronic,
+            R.drawable.iconcategorybook,
+            R.drawable.iconcategoryothers};
+
     int CAMERA_PIC_REQUEST = 0;
     String pictureImagePath = "";
-
     ImageButton imgBtnTakePhoto;
     Button saveAdvert;
-    String arrayMainCategory_[];
-    Spinner spinnerMainCategory_;
-    ArrayAdapter adapterSpinner;
-
+    Spinner spinnerMainCategory_, spinnerSubCategory_;
+    SpinnerAdapter adapterSpinner;
     String image_;
-
     ProgressDialog progressDialog;
     SaveAdvert task;
     WebServiceMethod method;
+    EditText edtDescription_, edtPhone_, edtMail_;
+
+    //Fields for sending
+    int selectedMainCategoryID_;
+    String advertDescription_, advertPhone_, advertMail_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_advert);
 
-        arrayMainCategory_ = new String[CategoryListActivity.categoryTexts_.length + 1];
-        arrayMainCategory_[0] = "Ana Kategori Seçiniz";
-        for (int i = 1; i <= CategoryListActivity.categoryTexts_.length; i++)
-            arrayMainCategory_[i] = CategoryListActivity.categoryTexts_[i - 1];
-
+        edtDescription_ = (EditText) findViewById(R.id.pageCreateAdvertEdtDescription);
+        edtPhone_ = (EditText) findViewById(R.id.pageCreateAdvertEdtPhone);
+        edtMail_ = (EditText) findViewById(R.id.pageCreateAdvertEdtMail);
+        imgBtnTakePhoto = (ImageButton) findViewById(R.id.mainImage);
         spinnerMainCategory_ = (Spinner) findViewById(R.id.createAdvertMainCategory);
-        adapterSpinner = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, arrayMainCategory_);
+        spinnerSubCategory_ = (Spinner) findViewById(R.id.createAdvertSubCategory);
+        saveAdvert = (Button) findViewById(R.id.pageCreateAdvertBtnSave);
+
+        spinnerSubCategory_.setVisibility(View.GONE);
+        edtPhone_.setText(UserInfo.Phone);
+        edtMail_.setText(UserInfo.Email);
+
+        adapterSpinner = new SpinnerAdapter(CreateAdvertActivity.this, getResources().getStringArray(R.array.MainCategories), categoryIcons_);
         spinnerMainCategory_.setAdapter(adapterSpinner);
 
-        imgBtnTakePhoto = (ImageButton) findViewById(R.id.mainImage);
-        saveAdvert = (Button) findViewById(R.id.pageCreateAdvertBtnSave);
+        spinnerMainCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                if (spinnerMainCategory_.getSelectedItemPosition() != 0 && spinnerMainCategory_.getSelectedItemPosition() != 1)
+                    spinnerSubCategory_.setVisibility(View.VISIBLE);
+                else
+                    spinnerSubCategory_.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
 
         image_ = getBase64ImageString();
 
         saveAdvert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                task = new SaveAdvert();
-                task.execute();
+                /*task = new SaveAdvert();
+                task.execute();*/
+                checkFields();
             }
         });
     }
@@ -107,6 +135,14 @@ public class CreateAdvertActivity extends Activity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
         return Base64.encodeToString(stream.toByteArray(), 0);
+    }
+
+    private void checkFields() {
+        selectedMainCategoryID_ = spinnerMainCategory_.getSelectedItemPosition();
+        advertDescription_ = edtDescription_.getText().toString();
+        advertPhone_ = edtPhone_.getText().toString();
+        advertMail_ = edtMail_.getText().toString();
+        Toast.makeText(getApplicationContext(), String.valueOf(selectedMainCategoryID_), Toast.LENGTH_SHORT).show();
     }
 
     private class SaveAdvert extends AsyncTask<Void, Void, Void> {
