@@ -12,6 +12,7 @@
     <string name="Email">e-Mail Adresi</string>
     <string name="Phone">Telefon Numarası</string>
     <string name="NameSurname">Ad Soyad</string>
+    <string name="CreateAdvert">İlan Ver</string>
 
     <string-array name="MainCategories">
         <item>Ana Kategori Seçiniz...</item>
