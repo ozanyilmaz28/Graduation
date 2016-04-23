@@ -1,6 +1,7 @@
 package com.graduationteam.graduation;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
 
+import entities.KeyCodes;
 import entities.UserInfo;
 import entities.WebServiceMethod;
 
@@ -27,6 +29,7 @@ public class LogInActivity extends AppCompatActivity {
     private static String password;
     LoginMethod task;
     WebServiceMethod method;
+    Intent newPage_;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -42,13 +45,27 @@ public class LogInActivity extends AppCompatActivity {
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userNameOrEmail = txtUserNameOrEmail.getText().toString();
-                password = txtPassword.getText().toString();
-
-                task = new LoginMethod();
-                task.execute();
+                checkFields();
             }
         });
+    }
+
+    public void checkFields() {
+        userNameOrEmail = txtUserNameOrEmail.getText().toString().trim();
+        password = txtPassword.getText().toString().trim();
+
+        if (!userNameOrEmail.equals("")) {
+            if (!password.equals("")) {
+                task = new LoginMethod();
+                task.execute();
+            } else {
+                Toast.makeText(LogInActivity.this, "Şifre Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+                txtPassword.requestFocus();
+            }
+        } else {
+            Toast.makeText(LogInActivity.this, "Kullanıcı Adı Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+            txtUserNameOrEmail.requestFocus();
+        }
     }
 
     private class LoginMethod extends AsyncTask<Void, Void, Void> {
@@ -92,10 +109,17 @@ public class LogInActivity extends AppCompatActivity {
                     editor.putString("Email", UserInfo.Email);
                     editor.putString("Phone", UserInfo.Phone);
                     editor.commit();
+
+                    if (UserInfo.SelectedPage == KeyCodes.MainToCreateAdvert) {
+                        newPage_ = new Intent(LogInActivity.this, CreateAdvertActivity.class);
+                        startActivity(newPage_);
+                        finish();
+                    }
                 } else {
                     Toast.makeText(LogInActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
                 }
-            }
+            } else
+                Toast.makeText(LogInActivity.this, "Web Service'ten Cevap Alınamıyor!", Toast.LENGTH_SHORT).show();
         }
 
         @Override

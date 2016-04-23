@@ -9,6 +9,8 @@ import android.widget.GridView;
 
 import adapters.ImageAdapter;
 import controller.Controller;
+import entities.KeyCodes;
+import entities.UserInfo;
 
 public class MainList extends AppCompatActivity {
 
@@ -49,6 +51,7 @@ public class MainList extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     intent = new Intent(MainList.this, LogInActivity.class);
+                    UserInfo.SelectedPage = KeyCodes.MainToCreateAdvert;
                     startActivity(intent);
                 }
             }

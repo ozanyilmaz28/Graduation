@@ -73,7 +73,7 @@ public class ImageAdapter extends BaseAdapter {
         Point size = new Point();
         display.getSize(size);
         int imgWidth_ = ((size.x) * 3 / 10);
-        int imgHeight = (((size.y) - 30) * 15 / 100);
+        int imgHeight = (((size.y) - 80) * 15 / 100);
 
 
         if (m_d != null) {
