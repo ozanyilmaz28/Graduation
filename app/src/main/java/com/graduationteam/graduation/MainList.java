@@ -12,7 +12,7 @@ import controller.Controller;
 
 public class MainList extends AppCompatActivity {
 
-    Button btnCategory, btnCreateAdvert;
+    Button btnCategory, btnCreateAdvert, btnMyPage, btnSettings;
     GridView gridView;
     Intent intent;
 
@@ -26,6 +26,8 @@ public class MainList extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.gridView);
         btnCategory = (Button) findViewById(R.id.btnCategory);
         btnCreateAdvert = (Button) findViewById(R.id.btnCreateAdvert);
+        btnMyPage = (Button) findViewById(R.id.btnMyPage);
+        btnSettings = (Button) findViewById(R.id.btnSettings);
 
         gridView.setAdapter(new ImageAdapter(this));
 
@@ -48,6 +50,34 @@ public class MainList extends AppCompatActivity {
                 } else {
                     intent = new Intent(MainList.this, LogInActivity.class);
                     startActivity(intent);
+                }
+            }
+        });
+
+        btnMyPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller_ = new Controller();
+                if (controller_.isUserLoggedIn(getApplicationContext())) {
+                    /*intent = new Intent(MainList.this, CreateAdvertActivity.class);
+                    startActivity(intent);*/
+                } else {
+                    /*intent = new Intent(MainList.this, LogInActivity.class);
+                    startActivity(intent);*/
+                }
+            }
+        });
+
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller_ = new Controller();
+                if (controller_.isUserLoggedIn(getApplicationContext())) {
+                    /*intent = new Intent(MainList.this, CreateAdvertActivity.class);
+                    startActivity(intent);*/
+                } else {
+                    /*intent = new Intent(MainList.this, LogInActivity.class);
+                    startActivity(intent);*/
                 }
             }
         });
