@@ -29,45 +29,49 @@
 
 
     <LinearLayout
-        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/appFrontEndColour"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <Button
             android:id="@+id/btnCategory"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/custom_button"
             android:drawableTop="@drawable/iconsearch" />
 
 
         <Button
             android:id="@+id/btnCreateAdvert"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:background="@drawable/custom_button"
             android:drawableTop="@drawable/iconplus" />
 
 
         <Button
             android:id="@+id/btnMyPage"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:background="@drawable/custom_button"
             android:drawableTop="@drawable/iconpersonel" />
 
 
         <Button
             android:id="@+id/btnSettings"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:background="@drawable/custom_button"
             android:drawableTop="@drawable/iconsettings" />
 

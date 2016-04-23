@@ -13,14 +13,49 @@
     <string name="Phone">Telefon Numarası</string>
     <string name="NameSurname">Ad Soyad</string>
     <string name="CreateAdvert">İlan Ver</string>
+    <string name="btnSettingsUpdate">Bilgi Güncelle</string>
+    <string name="btnSettingsLogOut">Çıkış</string>
 
     <string-array name="MainCategories">
         <item>Ana Kategori Seçiniz...</item>
         <item>Kiralık Ev</item>
-        <item>Ev Eşyası</item>
+        <item>Mobilya</item>
         <item>Ev Arkadaşı</item>
         <item>Elektronik Eşya</item>
+        <item>Kitap</item>
         <item>Diğer</item>
+    </string-array>
+
+    <string-array name="SubCategories2">
+        <item>Alt Kategori Seçiniz...</item>
+        <item>Kanepe</item>
+        <item>Yatak</item>
+        <item>Baza</item>
+        <item>Gardırop</item>
+    </string-array>
+
+    <string-array name="SubCategories3">
+        <item>Alt Kategori Seçiniz...</item>
+        <item>Farketmez</item>
+        <item>Kadın</item>
+        <item>Erkek</item>
+    </string-array>
+
+    <string-array name="SubCategories4">
+        <item>Alt Kategori Seçiniz...</item>
+        <item>Cep Telefonu</item>
+        <item>Dizüstü Bilgisayar</item>
+        <item>Masaüstü Bilgisayar</item>
+        <item>Televizyon</item>
+        <item>Buzdolabı</item>
+        <item>Çamaşır Makinesi</item>
+        <item>Bulaşık Makinesi</item>
+    </string-array>
+
+    <string-array name="SubCategories5">
+        <item>Alt Kategori Seçiniz...</item>
+        <item>Ders Kitabı</item>
+        <item>Okuma Kitabı</item>
     </string-array>
 
     <array name="MainCategoriyIcons">

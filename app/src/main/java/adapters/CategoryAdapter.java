@@ -16,10 +16,12 @@ import com.graduationteam.graduation.R;
  * Created by LA-173 on 20.03.2016.
  */
 public class CategoryAdapter extends BaseAdapter {
+    private static LayoutInflater inflater = null;
     String[] result;
     Context context;
     int[] imageId;
-    private static LayoutInflater inflater = null;
+    String[] subCategories;
+    String subText;
 
     public CategoryAdapter(CategoryListActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
         // TODO Auto-generated constructor stub
@@ -48,21 +50,41 @@ public class CategoryAdapter extends BaseAdapter {
         return position;
     }
 
-    public class Holder {
-        TextView tv;
-        ImageView img;
-    }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         Holder holder = new Holder();
         View rowView;
         rowView = inflater.inflate(R.layout.custom_category_list, null);
-        holder.tv = (TextView) rowView.findViewById(R.id.textView1);
-        holder.img = (ImageView) rowView.findViewById(R.id.imageView1);
-        holder.tv.setText(result[position]);
-        holder.img.setImageResource(imageId[position]);
+        holder.tvMain = (TextView) rowView.findViewById(R.id.textViewMain);
+        holder.tvSub = (TextView) rowView.findViewById(R.id.textViewSub);
+        holder.imageMain = (ImageView) rowView.findViewById(R.id.imageViewMain);
+        holder.tvMain.setText(result[position]);
+        subText = "";
+        if (position < 1 || position == 5)
+            subText = "";
+        if (position == 1) {
+            subCategories = context.getResources().getStringArray(R.array.SubCategories2);
+            for (int i = 1; i < subCategories.length; i++)
+                subText += subCategories[i] + "\n";
+        }
+        if (position == 2) {
+            subCategories = context.getResources().getStringArray(R.array.SubCategories3);
+            for (int i = 1; i < subCategories.length; i++)
+                subText += subCategories[i] + "\n";
+        }
+        if (position == 3) {
+            subCategories = context.getResources().getStringArray(R.array.SubCategories4);
+            for (int i = 1; i < subCategories.length; i++)
+                subText += subCategories[i] + "\n";
+        }
+        if (position == 4) {
+            subCategories = context.getResources().getStringArray(R.array.SubCategories5);
+            for (int i = 1; i < subCategories.length; i++)
+                subText += subCategories[i] + "\n";
+        }
+        holder.tvSub.setText(subText.trim());
+        holder.imageMain.setImageResource(imageId[position]);
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +93,12 @@ public class CategoryAdapter extends BaseAdapter {
             }
         });
         return rowView;
+    }
+
+    public class Holder {
+        TextView tvMain;
+        TextView tvSub;
+        ImageView imageMain;
     }
 
 }

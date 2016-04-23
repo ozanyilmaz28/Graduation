@@ -40,17 +40,20 @@ public class CreateAdvertActivity extends Activity {
             R.drawable.iconcategorybook,
             R.drawable.iconcategoryothers};
 
+    public static int[] subIcons_ = {R.drawable.iconcategorypleaseselect};
+
     int CAMERA_PIC_REQUEST = 0;
     String pictureImagePath = "";
     ImageButton imgBtnTakePhoto;
     Button saveAdvert;
     Spinner spinnerMainCategory_, spinnerSubCategory_;
-    SpinnerAdapter adapterSpinner;
+    SpinnerAdapter adapterSpinner, subSpinner;
     String baseImage_, image_;
     ProgressDialog progressDialog;
     SaveAdvert task;
     WebServiceMethod method;
     EditText edtDescription_, edtPhone_, edtMail_;
+    int subID_;
 
     //Fields for sending
     int selectedMainCategoryID_, selectedSubCategoryID_;
@@ -79,9 +82,19 @@ public class CreateAdvertActivity extends Activity {
         spinnerMainCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                if (spinnerMainCategory_.getSelectedItemPosition() != 0 && spinnerMainCategory_.getSelectedItemPosition() != 1) {
+                if (spinnerMainCategory_.getSelectedItemPosition() != 0 && spinnerMainCategory_.getSelectedItemPosition() != 1 && spinnerMainCategory_.getSelectedItemPosition() != 6) {
                     spinnerSubCategory_.setVisibility(View.VISIBLE);
                     selectedSubCategoryID_ = 0;
+                    if (spinnerMainCategory_.getSelectedItemPosition() == 2)
+                        subID_ = R.array.SubCategories2;
+                    if (spinnerMainCategory_.getSelectedItemPosition() == 3)
+                        subID_ = R.array.SubCategories3;
+                    if (spinnerMainCategory_.getSelectedItemPosition() == 4)
+                        subID_ = R.array.SubCategories4;
+                    if (spinnerMainCategory_.getSelectedItemPosition() == 5)
+                        subID_ = R.array.SubCategories5;
+                    subSpinner = new SpinnerAdapter(CreateAdvertActivity.this, getResources().getStringArray(subID_), subIcons_);
+                    spinnerSubCategory_.setAdapter(subSpinner);
                 } else {
                     spinnerSubCategory_.setVisibility(View.GONE);
                     selectedSubCategoryID_ = -1;
@@ -156,23 +169,28 @@ public class CreateAdvertActivity extends Activity {
                 if (!advertDescription_.equals(null) && !advertDescription_.equals("")) {
                     if (advertDescription_.length() >= 30) {
                         if ((!advertPhone_.equals(null) && !advertPhone_.equals("")) || (!advertMail_.equals(null) && !advertMail_.equals(""))) {
-                            task = new SaveAdvert();
-                            task.execute();
+                            /*task = new SaveAdvert();
+                            task.execute();*/
                         } else {
                             Toast.makeText(CreateAdvertActivity.this, "Telefon numarası ya da email adresi giriniz...", Toast.LENGTH_SHORT).show();
+                            edtPhone_.requestFocus();
                         }
                     } else {
                         Toast.makeText(CreateAdvertActivity.this, "Açıklama en az 30 karakter olmalıdır...", Toast.LENGTH_SHORT).show();
+                        edtDescription_.requestFocus();
                     }
                 } else {
                     Toast.makeText(CreateAdvertActivity.this, "Lütfen açıklama giriniz...", Toast.LENGTH_SHORT).show();
+                    edtDescription_.requestFocus();
                 }
             } else {
                 Toast.makeText(CreateAdvertActivity.this, "Lütfen alt kategori seçiniz...", Toast.LENGTH_SHORT).show();
+                spinnerSubCategory_.requestFocus();
             }
 
         } else {
             Toast.makeText(CreateAdvertActivity.this, "Lütfen ana kategori seçiniz...", Toast.LENGTH_SHORT).show();
+            spinnerMainCategory_.requestFocus();
         }
     }
 

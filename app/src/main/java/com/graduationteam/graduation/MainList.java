@@ -76,11 +76,11 @@ public class MainList extends AppCompatActivity {
             public void onClick(View v) {
                 controller_ = new Controller();
                 if (controller_.isUserLoggedIn(getApplicationContext())) {
-                    /*intent = new Intent(MainList.this, CreateAdvertActivity.class);
-                    startActivity(intent);*/
+                    intent = new Intent(MainList.this, SettingsActivity.class);
+                    startActivity(intent);
                 } else {
-                    /*intent = new Intent(MainList.this, LogInActivity.class);
-                    startActivity(intent);*/
+                    intent = new Intent(MainList.this, LogInActivity.class);
+                    startActivity(intent);
                 }
             }
         });

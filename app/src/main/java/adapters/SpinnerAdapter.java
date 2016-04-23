@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.graduationteam.graduation.CategoryListActivity;
 import com.graduationteam.graduation.CreateAdvertActivity;
 import com.graduationteam.graduation.R;
 
@@ -17,10 +15,10 @@ import com.graduationteam.graduation.R;
  * Created by LA-173 on 20.03.2016.
  */
 public class SpinnerAdapter extends BaseAdapter {
+    private static LayoutInflater inflater = null;
     String[] result;
     Context context;
     int[] imageId;
-    private static LayoutInflater inflater = null;
 
     public SpinnerAdapter(CreateAdvertActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
         // TODO Auto-generated constructor stub
@@ -49,11 +47,6 @@ public class SpinnerAdapter extends BaseAdapter {
         return position;
     }
 
-    public class Holder {
-        TextView tv;
-        ImageView img;
-    }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
@@ -63,8 +56,16 @@ public class SpinnerAdapter extends BaseAdapter {
         holder.tv = (TextView) rowView.findViewById(R.id.textViewSpinner);
         holder.img = (ImageView) rowView.findViewById(R.id.imageViewSpinner);
         holder.tv.setText(result[position]);
-        holder.img.setImageResource(imageId[position]);
+        if (imageId.length == 1)
+            holder.img.setImageResource(imageId[0]);
+        else
+            holder.img.setImageResource(imageId[position]);
         return rowView;
+    }
+
+    public class Holder {
+        TextView tv;
+        ImageView img;
     }
 
 }
