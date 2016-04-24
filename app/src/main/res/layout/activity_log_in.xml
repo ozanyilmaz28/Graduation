@@ -46,14 +46,16 @@
             android:text="@string/LogIn"
             android:textColor="@color/appFrontEndColour" />
 
-        <TextView
+        <Button
             android:id="@+id/LogInSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:autoLink="web"
+            android:background="@android:color/transparent"
             android:clickable="true"
             android:hint="@string/SignUp"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="20dp" />
 
     </LinearLayout>

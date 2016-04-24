@@ -76,6 +76,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:inputType="phone"
+                android:digits="0123456789"
                 android:background="@drawable/custom_field"
                 android:hint="@string/CreateAdvertViewUseDifferentPhone"
                 android:maxLength="15"
@@ -86,17 +88,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:inputType="textEmailAddress"
                 android:background="@drawable/custom_field"
                 android:hint="@string/CreateAdvertViewUseDifferentMail"
                 android:maxLength="60"
                 android:maxLines="2" />
 
-            <TextView
+            <EditText
+                android:id="@+id/pageCreateAdvertEdtPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/custom_field"
-                android:hint="@string/CreateAdvertViewUseLocationInfo" />
+                android:hint="@string/CreateAdvertViewPrice" />
 
 
         </LinearLayout>

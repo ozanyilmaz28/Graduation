@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackEndColour"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,61 +12,77 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SignUpActivity">
 
-    <EditText
-        android:id="@+id/SignUpUserName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/UserName"
-        android:maxLength="30"
-        android:singleLine="true" />
+        android:layout_height="match_parent"
+        android:background="@drawable/custom_layout"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/SignUpNameSurname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/NameSurname"
-        android:maxLength="30"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/SignUpUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/UserName"
+            android:maxLength="30"
+            android:singleLine="true" />
 
-    <EditText
-        android:id="@+id/SignUpEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Email"
-        android:maxLength="60"
-        android:maxLines="2" />
+        <EditText
+            android:id="@+id/SignUpNameSurname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/NameSurname"
+            android:maxLength="30"
+            android:singleLine="true" />
 
-    <EditText
-        android:id="@+id/SignUpPhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Phone"
-        android:maxLength="15"
-        android:numeric="integer"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/SignUpEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Email"
+            android:inputType="textEmailAddress"
+            android:maxLength="60"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/SignUpPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/Phone"
+            android:inputType="phone"
+            android:maxLength="15"
+            android:numeric="integer"
+            android:singleLine="true" />
 
 
-    <EditText
-        android:id="@+id/SignUpPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Password"
-        android:maxLength="30"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/SignUpPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Password"
+            android:maxLength="30"
+            android:password="true"
+            android:singleLine="true" />
 
-    <EditText
-        android:id="@+id/SignUpPasswordConfirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/PasswordConfirm"
-        android:maxLength="30"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/SignUpPasswordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/PasswordConfirm"
+            android:maxLength="30"
+            android:password="true"
+            android:singleLine="true" />
 
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SignUp" />
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/appBackEndColour"
+            android:text="@string/SignUp"
+            android:textColor="@color/appFrontEndColour" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

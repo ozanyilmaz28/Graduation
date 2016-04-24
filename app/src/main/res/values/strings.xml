@@ -2,6 +2,7 @@
     <string name="app_name">Graduation</string>
     <string name="CreateAdvertViewPleaseEnterDescription">Lütfen ilan açıklamanızı giriniz... (En fazla 1000 karakter)</string>
     <string name="CreateAdvertViewUseLocationInfo">Konum bilgisi kullan...</string>
+    <string name="CreateAdvertViewPrice">Fiyat(TL)...</string>
     <string name="CreateAdvertViewUseDifferentPhone">Farklı bir telefon numarası kullan...</string>
     <string name="CreateAdvertViewUseDifferentMail">Farklı bir mail adresi kullan...</string>
     <string name="SignUp"><u>Üye Ol!</u></string>

@@ -52,12 +52,12 @@ public class CreateAdvertActivity extends Activity {
     ProgressDialog progressDialog;
     SaveAdvert task;
     WebServiceMethod method;
-    EditText edtDescription_, edtPhone_, edtMail_;
+    EditText edtDescription_, edtPhone_, edtMail_, edtPrice_;
     int subID_;
 
     //Fields for sending
     int selectedMainCategoryID_, selectedSubCategoryID_;
-    String advertDescription_, advertPhone_, advertMail_;
+    String advertDescription_, advertPhone_, advertMail_, advertPrice_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class CreateAdvertActivity extends Activity {
         edtDescription_ = (EditText) findViewById(R.id.pageCreateAdvertEdtDescription);
         edtPhone_ = (EditText) findViewById(R.id.pageCreateAdvertEdtPhone);
         edtMail_ = (EditText) findViewById(R.id.pageCreateAdvertEdtMail);
+        edtPrice_ = (EditText) findViewById(R.id.pageCreateAdvertEdtPrice);
         imgBtnTakePhoto = (ImageButton) findViewById(R.id.mainImage);
         spinnerMainCategory_ = (Spinner) findViewById(R.id.createAdvertMainCategory);
         spinnerSubCategory_ = (Spinner) findViewById(R.id.createAdvertSubCategory);
@@ -162,6 +163,7 @@ public class CreateAdvertActivity extends Activity {
         advertDescription_ = edtDescription_.getText().toString().trim();
         advertPhone_ = edtPhone_.getText().toString().trim();
         advertMail_ = edtMail_.getText().toString().trim();
+        advertPrice_ = edtPrice_.getText().toString().trim();
         image_ = "";
 
         if (selectedMainCategoryID_ > 0) {
@@ -169,8 +171,13 @@ public class CreateAdvertActivity extends Activity {
                 if (!advertDescription_.equals(null) && !advertDescription_.equals("")) {
                     if (advertDescription_.length() >= 30) {
                         if ((!advertPhone_.equals(null) && !advertPhone_.equals("")) || (!advertMail_.equals(null) && !advertMail_.equals(""))) {
-                            /*task = new SaveAdvert();
-                            task.execute();*/
+                            if (!advertPrice_.equals(null) && !advertPrice_.equals("")) {
+                                task = new SaveAdvert();
+                                task.execute();
+                            } else {
+                                Toast.makeText(CreateAdvertActivity.this, "Fiyat boş bırakılamaz...", Toast.LENGTH_SHORT).show();
+                                edtPrice_.requestFocus();
+                            }
                         } else {
                             Toast.makeText(CreateAdvertActivity.this, "Telefon numarası ya da email adresi giriniz...", Toast.LENGTH_SHORT).show();
                             edtPhone_.requestFocus();
@@ -208,6 +215,7 @@ public class CreateAdvertActivity extends Activity {
                 method.request.addProperty("Phone_", advertPhone_);
                 method.request.addProperty("Mail_", advertMail_);
                 method.request.addProperty("Image_", image_);
+                method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
 
                 method.Method();
 
@@ -224,6 +232,7 @@ public class CreateAdvertActivity extends Activity {
                 method.objResult = (SoapObject) method.objMain.getProperty(0);
                 if (Boolean.parseBoolean(method.objResult.getProperty("Success").toString())) {
                     Toast.makeText(CreateAdvertActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     Toast.makeText(CreateAdvertActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
                 }

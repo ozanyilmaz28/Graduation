@@ -20,18 +20,17 @@ import entities.WebServiceMethod;
 
 public class LogInActivity extends AppCompatActivity {
 
-    private static ProgressDialog progressDialog;
-    private static EditText txtUserNameOrEmail;
-    private static EditText txtPassword;
-    private static Button btnLogIn;
+    ProgressDialog progressDialog;
+    EditText txtUserNameOrEmail, txtPassword;
+    Button btnLogIn, btnSignUp;
 
-    private static String userNameOrEmail;
-    private static String password;
+    String userNameOrEmail, password;
+
     LoginMethod task;
     WebServiceMethod method;
     Intent newPage_;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +40,21 @@ public class LogInActivity extends AppCompatActivity {
         txtUserNameOrEmail = (EditText) findViewById(R.id.LoginUsername);
         txtPassword = (EditText) findViewById(R.id.LoginPassword);
         btnLogIn = (Button) findViewById(R.id.LogInButton);
+        btnSignUp = (Button) findViewById(R.id.LogInSignUp);
 
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkFields();
+            }
+        });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newPage_ = new Intent(LogInActivity.this, SignUpActivity.class);
+                startActivity(newPage_);
+                finish();
             }
         });
     }
@@ -117,6 +126,9 @@ public class LogInActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(LogInActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
+                    txtUserNameOrEmail.setText("");
+                    txtPassword.setText("");
+                    txtPassword.requestFocus();
                 }
             } else
                 Toast.makeText(LogInActivity.this, "Web Service'ten Cevap Alınamıyor!", Toast.LENGTH_SHORT).show();
