@@ -24,7 +24,7 @@
         <item>Ev Arkadaşı</item>
         <item>Elektronik Eşya</item>
         <item>Kitap</item>
-        <item>Diğer</item>
+        <item>Diger</item>
     </string-array>
 
     <string-array name="SubCategories2">
@@ -32,31 +32,31 @@
         <item>Kanepe</item>
         <item>Yatak</item>
         <item>Baza</item>
-        <item>Gardırop</item>
+        <item>Gardirop</item>
     </string-array>
 
     <string-array name="SubCategories3">
         <item>Alt Kategori Seçiniz...</item>
         <item>Farketmez</item>
-        <item>Kadın</item>
+        <item>Kadin</item>
         <item>Erkek</item>
     </string-array>
 
     <string-array name="SubCategories4">
         <item>Alt Kategori Seçiniz...</item>
         <item>Cep Telefonu</item>
-        <item>Dizüstü Bilgisayar</item>
-        <item>Masaüstü Bilgisayar</item>
+        <item>Dizustu Bilgisayar</item>
+        <item>Masaustu Bilgisayar</item>
         <item>Televizyon</item>
-        <item>Buzdolabı</item>
-        <item>Çamaşır Makinesi</item>
-        <item>Bulaşık Makinesi</item>
+        <item>Buzdolabi</item>
+        <item>Camasir Makinesi</item>
+        <item>Bulasik Makinesi</item>
     </string-array>
 
     <string-array name="SubCategories5">
         <item>Alt Kategori Seçiniz...</item>
-        <item>Ders Kitabı</item>
-        <item>Okuma Kitabı</item>
+        <item>Ders Kitabi</item>
+        <item>Okuma Kitabi</item>
     </string-array>
 
     <array name="MainCategoriyIcons">

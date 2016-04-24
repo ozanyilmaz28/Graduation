@@ -57,7 +57,7 @@ public class CreateAdvertActivity extends Activity {
 
     //Fields for sending
     int selectedMainCategoryID_, selectedSubCategoryID_;
-    String advertDescription_, advertPhone_, advertMail_, advertPrice_;
+    String advertDescription_, advertPhone_, advertMail_, advertPrice_, selectedSubCategoryDesc_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +96,18 @@ public class CreateAdvertActivity extends Activity {
                         subID_ = R.array.SubCategories5;
                     subSpinner = new SpinnerAdapter(CreateAdvertActivity.this, getResources().getStringArray(subID_), subIcons_);
                     spinnerSubCategory_.setAdapter(subSpinner);
+
+                    spinnerSubCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            selectedSubCategoryDesc_ = getResources().getStringArray(subID_)[position];
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
                 } else {
                     spinnerSubCategory_.setVisibility(View.GONE);
                     selectedSubCategoryID_ = -1;
@@ -107,13 +119,12 @@ public class CreateAdvertActivity extends Activity {
             }
         });
 
+
         baseImage_ = getBase64ImageString();
 
         saveAdvert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*task = new SaveAdvert();
-                task.execute();*/
                 checkFields();
             }
         });
@@ -209,7 +220,7 @@ public class CreateAdvertActivity extends Activity {
 
                 method.request.addProperty("AdvertID_", 0);
                 method.request.addProperty("AdvertMainTypeID_", selectedMainCategoryID_);
-                method.request.addProperty("AdvertSubTypeID_", 0);
+                method.request.addProperty("AdvertSubTypeDescription_", selectedSubCategoryDesc_);
                 method.request.addProperty("AdvertDescription_", advertDescription_);
                 method.request.addProperty("UserID_", UserInfo.UserID);
                 method.request.addProperty("Phone_", advertPhone_);
