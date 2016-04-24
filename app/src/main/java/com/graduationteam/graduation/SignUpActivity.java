@@ -27,6 +27,7 @@ public class SignUpActivity extends Activity {
     EditText edtUsername, edtNameSurname, edtMail, edtPhone, edtPass, edtPassConfirm;
     String username_, nameSurname_, eMail_, phone_, pass_, passConfirm_;
     Controller cont_;
+    Boolean isNewUser;
 
     SignUpMethod task;
     WebServiceMethod method;
@@ -48,6 +49,19 @@ public class SignUpActivity extends Activity {
         edtPhone = (EditText) findViewById(R.id.SignUpPhoneNumber);
         edtPass = (EditText) findViewById(R.id.SignUpPassword);
         edtPassConfirm = (EditText) findViewById(R.id.SignUpPasswordConfirm);
+
+        if (UserInfo.SelectedPage == KeyCodes.SettingsToSingUp) {
+            isNewUser = false;
+            edtUsername.setText(UserInfo.UserName);
+            edtNameSurname.setText(UserInfo.NameSurname);
+            edtMail.setText(UserInfo.Email);
+            edtPhone.setText(UserInfo.Phone);
+            edtPass.setText(UserInfo.Password);
+            edtPassConfirm.setText(UserInfo.Password);
+            edtUsername.setEnabled(false);
+        } else
+            isNewUser = true;
+
 
         edtPhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
@@ -121,7 +135,7 @@ public class SignUpActivity extends Activity {
             try {
                 method = new WebServiceMethod("DoInsertAndUpdateUser", "Object");
 
-                method.request.addProperty("IsNewUser_", true);
+                method.request.addProperty("IsNewUser_", isNewUser);
                 method.request.addProperty("Username_", username_);
                 method.request.addProperty("NameSurname_", nameSurname_);
                 method.request.addProperty("Email_", eMail_);

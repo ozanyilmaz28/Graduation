@@ -53,6 +53,7 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 newPage_ = new Intent(LogInActivity.this, SignUpActivity.class);
+                UserInfo.SelectedPage = KeyCodes.LogInToSingUp;
                 startActivity(newPage_);
                 finish();
             }
@@ -108,6 +109,7 @@ public class LogInActivity extends AppCompatActivity {
                     UserInfo.NameSurname = method.objResultData.getProperty("USER_NAMESURNAME").toString();
                     UserInfo.Email = method.objResultData.getProperty("USER_EMAIL").toString();
                     UserInfo.Phone = method.objResultData.getProperty("USER_PHONE").toString();
+                    UserInfo.Password = method.objResultData.getProperty("USER_PASSWORD").toString();
 
                     sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     editor = sharedPreferences.edit();
@@ -117,6 +119,7 @@ public class LogInActivity extends AppCompatActivity {
                     editor.putString("NameSurname", UserInfo.NameSurname);
                     editor.putString("Email", UserInfo.Email);
                     editor.putString("Phone", UserInfo.Phone);
+                    editor.putString("Password", UserInfo.Password);
                     editor.commit();
 
                     if (UserInfo.SelectedPage == KeyCodes.MainToCreateAdvert) {

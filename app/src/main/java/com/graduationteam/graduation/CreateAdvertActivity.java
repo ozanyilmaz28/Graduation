@@ -216,11 +216,12 @@ public class CreateAdvertActivity extends Activity {
                 method.request.addProperty("Mail_", advertMail_);
                 method.request.addProperty("Image_", image_);
                 method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
+                method.request.addProperty("TR_", true);
 
                 method.Method();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                Toast.makeText(CreateAdvertActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
             }
             return null;
         }
