@@ -14,4 +14,6 @@ public class UserInfo {
     public static String Password;
     public static long UserID;
     public static int SelectedPage;
+    public static long SelectedMainCategory;
+
 }

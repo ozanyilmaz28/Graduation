@@ -1,16 +1,19 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.graduationteam.graduation.AdvertListActivity;
 import com.graduationteam.graduation.CategoryListActivity;
 import com.graduationteam.graduation.R;
+
+import entities.UserInfo;
 
 /**
  * Created by LA-173 on 20.03.2016.
@@ -22,6 +25,7 @@ public class CategoryAdapter extends BaseAdapter {
     int[] imageId;
     String[] subCategories;
     String subText;
+    Intent intent_;
 
     public CategoryAdapter(CategoryListActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
         // TODO Auto-generated constructor stub
@@ -88,8 +92,9 @@ public class CategoryAdapter extends BaseAdapter {
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Toast.makeText(context, "You Clicked " + result[position], Toast.LENGTH_LONG).show();
+                intent_ = new Intent(context, AdvertListActivity.class);
+                UserInfo.SelectedMainCategory = position + 1;
+                context.startActivity(intent_);
             }
         });
         return rowView;

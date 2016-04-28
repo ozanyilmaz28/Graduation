@@ -27,7 +27,8 @@
         <activity android:name=".CreateAdvertActivity" />
         <activity android:name=".LogInActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".AdvertListActivity"></activity>
     </application>
 
 </manifest>
