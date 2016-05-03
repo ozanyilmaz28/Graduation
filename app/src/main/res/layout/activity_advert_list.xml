@@ -21,19 +21,24 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <Spinner
+                android:layout_marginTop="5dp"
                 android:id="@+id/spinnerAdvertList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/btnAdvertListOrder"
                 android:layout_alignParentLeft="true"></Spinner>
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnAdvertListOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="2dp" />
         </RelativeLayout>
 
         <ListView

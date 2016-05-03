@@ -12,17 +12,17 @@ import com.graduationteam.graduation.R;
 
 import java.util.List;
 
-import entities.AdvertList;
+import entities.Advert;
 
 /**
  * Created by LA-173 on 20.03.2016.
  */
-public class AdvertAdapter extends ArrayAdapter<AdvertList> {
+public class AdvertAdapter extends ArrayAdapter<Advert> {
     private static LayoutInflater inflater = null;
     Context context;
 
     public AdvertAdapter(Context context, int resource,
-                         List<AdvertList> objects) {
+                         List<Advert> objects) {
         super(context, resource, objects);
     }
 
@@ -30,7 +30,7 @@ public class AdvertAdapter extends ArrayAdapter<AdvertList> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final AdvertList adverts = getItem(position);
+        final Advert adverts = getItem(position);
         View myRow = null;
 
         if (convertView == null) {
@@ -42,12 +42,14 @@ public class AdvertAdapter extends ArrayAdapter<AdvertList> {
 
         TextView txtAdvertHeader = (TextView) myRow.findViewById(R.id.txtAdvertListHeader);
         TextView txtAdvertDate = (TextView) myRow.findViewById(R.id.txtAdvertListDate);
+        TextView txtAdvertCategoryCode = (TextView) myRow.findViewById(R.id.txtAdvertListCategory);
         TextView txtAdvertPrice = (TextView) myRow.findViewById(R.id.txtAdvertListPrice);
         ImageView imgButton = (ImageView) myRow.findViewById(R.id.imgAdvertList);
 
-        txtAdvertHeader.setText(adverts.getAdvtDescription());
+        txtAdvertHeader.setText(adverts.getAdvtDescription().substring(0, 29) + "...");
         txtAdvertDate.setText(adverts.getAdvtDateTime());
-        txtAdvertPrice.setText(adverts.getAdvtPrice());
+        txtAdvertCategoryCode.setText(adverts.getAdvtCategoryCode());
+        txtAdvertPrice.setText(String.valueOf(adverts.getAdvtPrice()));
 
         return myRow;
     }

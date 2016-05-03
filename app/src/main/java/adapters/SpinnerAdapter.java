@@ -1,5 +1,6 @@
 package adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ public class SpinnerAdapter extends BaseAdapter {
     Context context;
     int[] imageId;
 
-    public SpinnerAdapter(CreateAdvertActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
+    public SpinnerAdapter(Activity mainActivity, String[] prgmNameList, int[] prgmImages) {
         // TODO Auto-generated constructor stub
         result = prgmNameList;
         context = mainActivity;
