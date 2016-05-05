@@ -10,6 +10,7 @@ public class Advert {
     public String advtPhone;
     public String advtMail;
     public String advtCategoryCode;
+    public String advtImageLink;
     public int advtPrice;
 
     public int getAdvtID() {
@@ -66,6 +67,14 @@ public class Advert {
 
     public void setAdvtCategoryCode(String advtCategoryCode) {
         this.advtCategoryCode = advtCategoryCode;
+    }
+
+    public String getAdvtImageLink() {
+        return advtImageLink;
+    }
+
+    public void setAdvtImageLink(String advtImageLink) {
+        this.advtImageLink = advtImageLink;
     }
 
     public Advert() {

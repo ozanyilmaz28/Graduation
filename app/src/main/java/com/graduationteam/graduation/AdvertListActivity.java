@@ -11,6 +11,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
@@ -101,6 +108,7 @@ public class AdvertListActivity extends AppCompatActivity {
                         advert.setAdvtMail(method.objResultDetailsData.getProperty("Mail").toString());
                         advert.setAdvtCategoryCode(method.objResultDetailsData.getProperty("MainCategoryCode").toString());
                         advert.setAdvtPrice(Integer.parseInt(method.objResultDetailsData.getProperty("Price").toString()));
+                        advert.setAdvtImageLink(method.objResultDetailsData.getProperty("ImageLink").toString());
                         advertList.add(advert);
                     }
                     allList = advertList;

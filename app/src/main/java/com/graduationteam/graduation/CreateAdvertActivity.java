@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -162,7 +163,7 @@ public class CreateAdvertActivity extends Activity {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.iconaddphoto);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
-        return Base64.encodeToString(stream.toByteArray(), 0);
+        return Base64.encodeToString(stream.toByteArray(),Base64.DEFAULT );
     }
 
     private void checkFields() {
@@ -225,14 +226,14 @@ public class CreateAdvertActivity extends Activity {
                 method.request.addProperty("UserID_", UserInfo.UserID);
                 method.request.addProperty("Phone_", advertPhone_);
                 method.request.addProperty("Mail_", advertMail_);
-                method.request.addProperty("Image_", image_);
+                method.request.addProperty("Image_", baseImage_);
                 method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
                 method.request.addProperty("TR_", true);
 
                 method.Method();
 
             } catch (Exception e) {
-                Toast.makeText(CreateAdvertActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAdvertActivity.this, e.toString(), Toast.LENGTH_LONG).show();
             }
             return null;
         }
