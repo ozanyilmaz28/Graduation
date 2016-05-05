@@ -4,7 +4,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import adapters.AdvertAdapter;
@@ -30,17 +33,21 @@ public class AdvertListActivity extends AppCompatActivity {
             R.drawable.iconcategoryelectronic,
             R.drawable.iconcategorybook,
             R.drawable.iconcategoryothers};
+
     public static int[] subIcons_ = {R.drawable.iconcategorypleaseselect};
+
     ImageButton btnAdvertListOrder_;
     ListView listAdvert_;
     Spinner subCategory_;
-    List<Advert> advertList;
+    List<Advert> advertList, allList, selectedList;
     Advert advert;
     AdvertAdapter advertAdapter;
     SpinnerAdapter adapterSpinner;
     ProgressDialog progressDialog;
     GetUserAdvertList task;
     WebServiceMethod method;
+    Boolean bool_ = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,8 @@ public class AdvertListActivity extends AppCompatActivity {
         subCategory_.setAdapter(adapterSpinner);
         task = new GetUserAdvertList();
         task.execute();
+
+
     }
 
     private class GetUserAdvertList extends AsyncTask<Void, Void, Void> {
@@ -79,6 +88,7 @@ public class AdvertListActivity extends AppCompatActivity {
             if (method.intPropertyCount == 1) {
                 method.objResult = (SoapObject) method.objMain.getProperty(0);
                 if (Boolean.parseBoolean(method.objResult.getProperty("Success").toString())) {
+                    allList = new ArrayList<Advert>();
                     advertList = new ArrayList<Advert>();
                     method.objResultData = (SoapObject) method.objResult.getProperty("Data");
                     for (int i = 0; i < method.objResultData.getPropertyCount(); i++) {
@@ -93,13 +103,62 @@ public class AdvertListActivity extends AppCompatActivity {
                         advert.setAdvtPrice(Integer.parseInt(method.objResultDetailsData.getProperty("Price").toString()));
                         advertList.add(advert);
                     }
+                    allList = advertList;
                     advertAdapter = new AdvertAdapter(AdvertListActivity.this, R.layout.custom_advert_list, advertList);
                     listAdvert_.setAdapter(advertAdapter);
+
+                    btnAdvertListOrder_.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Collections.sort(advertList, new Comparator<Advert>() {
+                                @Override
+                                public int compare(Advert p1, Advert p2) {
+                                    bool_ = !bool_;
+                                    if (bool_)
+                                        return p1.getAdvtPrice() - p2.getAdvtPrice();
+                                    else
+                                        return p2.getAdvtPrice() - p1.getAdvtPrice();
+                                }
+
+                            });
+
+                            advertAdapter = new AdvertAdapter(AdvertListActivity.this, R.layout.custom_advert_list, advertList);
+                            listAdvert_.setAdapter(advertAdapter);
+                        }
+                    });
+
+                    subCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                            if (subCategory_.getSelectedItemPosition() == 0) {
+                                advertList = allList;
+                                advertAdapter = new AdvertAdapter(AdvertListActivity.this, R.layout.custom_advert_list, advertList);
+                                listAdvert_.setAdapter(advertAdapter);
+                            } else {
+                                selectedList = new ArrayList<Advert>();
+                                for (Advert item_ : advertList) {
+                                    if (item_.getAdvtCategoryCode().indexOf(getResources().getStringArray(R.array.MainCategories)[arg2]) > -1)
+                                        selectedList.add(item_);
+                                }
+                                advertAdapter = new AdvertAdapter(AdvertListActivity.this, R.layout.custom_advert_list, selectedList);
+                                listAdvert_.setAdapter(advertAdapter);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> arg0) {
+                        }
+                    });
+
+
                 } else {
                     Toast.makeText(AdvertListActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-            } else
+            } else {
                 Toast.makeText(AdvertListActivity.this, "Web Servis ile Bağlantı Kurulamadı!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
 
         @Override

@@ -49,7 +49,7 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
         txtAdvertHeader.setText(adverts.getAdvtDescription().substring(0, 29) + "...");
         txtAdvertDate.setText(adverts.getAdvtDateTime());
         txtAdvertCategoryCode.setText(adverts.getAdvtCategoryCode());
-        txtAdvertPrice.setText(String.valueOf(adverts.getAdvtPrice()));
+        txtAdvertPrice.setText(String.valueOf(adverts.getAdvtPrice()) + "\nTL");
 
         return myRow;
     }
