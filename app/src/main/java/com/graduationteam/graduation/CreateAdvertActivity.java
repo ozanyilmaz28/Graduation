@@ -59,6 +59,9 @@ public class CreateAdvertActivity extends Activity {
     int selectedMainCategoryID_, selectedSubCategoryID_;
     String advertDescription_, advertPhone_, advertMail_, advertPrice_, selectedSubCategoryDesc_;
 
+    //Foto Çekimi
+    int TAKE_PHOTO_CODE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +139,10 @@ public class CreateAdvertActivity extends Activity {
 
             }
         });
+    }
+
+    public String getCurrentTimeStamp() {
+        return new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
     }
 
     private String getBase64ImageString() {

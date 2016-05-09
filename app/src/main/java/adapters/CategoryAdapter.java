@@ -92,6 +92,7 @@ public class CategoryAdapter extends BaseAdapter {
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserInfo.MethodName = "GetAdvertList";
                 intent_ = new Intent(context, AdvertListActivity.class);
                 UserInfo.SelectedMainCategory = position + 1;
                 context.startActivity(intent_);

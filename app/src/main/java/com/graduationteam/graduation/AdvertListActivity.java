@@ -55,6 +55,8 @@ public class AdvertListActivity extends AppCompatActivity {
     WebServiceMethod method;
     Boolean bool_ = false;
 
+    String selectedSub = "";
+    String[] cat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,27 @@ public class AdvertListActivity extends AppCompatActivity {
         listAdvert_ = (ListView) findViewById(R.id.listAdvert);
         subCategory_ = (Spinner) findViewById(R.id.spinnerAdvertList);
 
-        adapterSpinner = new SpinnerAdapter(AdvertListActivity.this, getResources().getStringArray(R.array.MainCategories), categoryIcons_);
+        if (UserInfo.MethodName.equals("GetUserAdvertList"))
+            adapterSpinner = new SpinnerAdapter(AdvertListActivity.this, getResources().getStringArray(R.array.MainCategories), categoryIcons_);
+        else {
+            if (UserInfo.SelectedMainCategory == 2)
+                cat = getResources().getStringArray(R.array.SubCategories2);
+            else if (UserInfo.SelectedMainCategory == 3)
+                cat = getResources().getStringArray(R.array.SubCategories3);
+            else if (UserInfo.SelectedMainCategory == 4)
+                cat = getResources().getStringArray(R.array.SubCategories4);
+            else if (UserInfo.SelectedMainCategory == 5)
+                cat = getResources().getStringArray(R.array.SubCategories5);
+            else {
+                cat = new String[1];
+                if (UserInfo.SelectedMainCategory == 1)
+                    cat[0] = getResources().getStringArray(R.array.MainCategories)[1];
+                else
+                    cat[0] = getResources().getStringArray(R.array.MainCategories)[6];
+                subCategory_.setEnabled(false);
+            }
+            adapterSpinner = new SpinnerAdapter(AdvertListActivity.this, cat, categoryIcons_);
+        }
         subCategory_.setAdapter(adapterSpinner);
         task = new GetUserAdvertList();
         task.execute();
@@ -77,9 +99,12 @@ public class AdvertListActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                method = new WebServiceMethod("GetUserAdvertList", "Object");
-
-                method.request.addProperty("UserID_", UserInfo.UserID);
+                method = new WebServiceMethod(UserInfo.MethodName, "Object");
+                if (UserInfo.MethodName.equals("GetUserAdvertList"))
+                    method.request.addProperty("UserID_", UserInfo.UserID);
+                else {
+                    method.request.addProperty("AdvertMainTypeID_", UserInfo.SelectedMainCategory);
+                }
 
                 method.Method();
 
@@ -144,8 +169,12 @@ public class AdvertListActivity extends AppCompatActivity {
                                 listAdvert_.setAdapter(advertAdapter);
                             } else {
                                 selectedList = new ArrayList<Advert>();
+                                if (UserInfo.MethodName.equals("GetUserAdvertList"))
+                                    selectedSub = getResources().getStringArray(R.array.MainCategories)[arg2];
+                                else
+                                    selectedSub = cat[arg2];
                                 for (Advert item_ : advertList) {
-                                    if (item_.getAdvtCategoryCode().indexOf(getResources().getStringArray(R.array.MainCategories)[arg2]) > -1)
+                                    if (item_.getAdvtCategoryCode().indexOf(selectedSub) > -1)
                                         selectedList.add(item_);
                                 }
                                 advertAdapter = new AdvertAdapter(AdvertListActivity.this, R.layout.custom_advert_list, selectedList);

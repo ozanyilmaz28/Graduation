@@ -15,5 +15,6 @@ public class UserInfo {
     public static long UserID;
     public static int SelectedPage;
     public static long SelectedMainCategory;
+    public static String MethodName;
 
 }

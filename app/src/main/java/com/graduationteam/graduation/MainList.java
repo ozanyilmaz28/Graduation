@@ -62,6 +62,7 @@ public class MainList extends AppCompatActivity {
             public void onClick(View v) {
                 controller_ = new Controller();
                 if (controller_.isUserLoggedIn(getApplicationContext())) {
+                    UserInfo.MethodName = "GetUserAdvertList";
                     intent = new Intent(MainList.this, AdvertListActivity.class);
                     startActivity(intent);
                 } else {
