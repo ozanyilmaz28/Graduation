@@ -28,26 +28,45 @@
                 android:gravity="center|top"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/mainImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="top|center_horizontal"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="center"
                     android:src="@drawable/iconcamera" />
 
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/createAdvertMainCategory"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/custom_field">
+                android:gravity="center">
 
-            </Spinner>
+                <Spinner
+                    android:id="@+id/createAdvertMainCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_toLeftOf="@+id/btnCreateAdvertTakePhoto"
+                    android:layout_toStartOf="@+id/btnCreateAdvertTakePhoto"
+                    android:background="@drawable/custom_field">
+
+                </Spinner>
+
+                <Button
+                    android:id="@+id/btnCreateAdvertTakePhoto"
+                    android:layout_width="50dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center" />
+
+            </RelativeLayout>
+
 
             <Spinner
                 android:id="@+id/createAdvertSubCategory"
@@ -76,10 +95,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:inputType="phone"
-                android:digits="0123456789"
                 android:background="@drawable/custom_field"
+                android:digits="0123456789"
                 android:hint="@string/CreateAdvertViewUseDifferentPhone"
+                android:inputType="phone"
                 android:maxLength="15"
                 android:singleLine="true" />
 
@@ -88,9 +107,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:inputType="textEmailAddress"
                 android:background="@drawable/custom_field"
                 android:hint="@string/CreateAdvertViewUseDifferentMail"
+                android:inputType="textEmailAddress"
                 android:maxLength="60"
                 android:maxLines="2" />
 
@@ -98,10 +117,10 @@
                 android:id="@+id/pageCreateAdvertEdtPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/custom_field"
-                android:hint="@string/CreateAdvertViewPrice" />
+                android:hint="@string/CreateAdvertViewPrice"
+                android:inputType="number" />
 
 
         </LinearLayout>

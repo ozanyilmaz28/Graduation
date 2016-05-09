@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -43,10 +44,8 @@ public class CreateAdvertActivity extends Activity {
 
     public static int[] subIcons_ = {R.drawable.iconcategorypleaseselect};
 
-    int CAMERA_PIC_REQUEST = 0;
-    String pictureImagePath = "";
-    ImageButton imgBtnTakePhoto;
-    Button saveAdvert;
+    ImageView imgBtnTakePhoto;
+    Button saveAdvert, btnCreateAdvertTakePhoto;
     Spinner spinnerMainCategory_, spinnerSubCategory_;
     SpinnerAdapter adapterSpinner, subSpinner;
     String baseImage_, image_;
@@ -69,10 +68,11 @@ public class CreateAdvertActivity extends Activity {
         edtPhone_ = (EditText) findViewById(R.id.pageCreateAdvertEdtPhone);
         edtMail_ = (EditText) findViewById(R.id.pageCreateAdvertEdtMail);
         edtPrice_ = (EditText) findViewById(R.id.pageCreateAdvertEdtPrice);
-        imgBtnTakePhoto = (ImageButton) findViewById(R.id.mainImage);
+        imgBtnTakePhoto = (ImageView) findViewById(R.id.mainImage);
         spinnerMainCategory_ = (Spinner) findViewById(R.id.createAdvertMainCategory);
         spinnerSubCategory_ = (Spinner) findViewById(R.id.createAdvertSubCategory);
         saveAdvert = (Button) findViewById(R.id.pageCreateAdvertBtnSave);
+        btnCreateAdvertTakePhoto = (Button) findViewById(R.id.btnCreateAdvertTakePhoto);
 
         spinnerSubCategory_.setVisibility(View.GONE);
         edtPhone_.setText(UserInfo.Phone);
@@ -129,41 +129,20 @@ public class CreateAdvertActivity extends Activity {
                 checkFields();
             }
         });
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            File imgFile = new File(pictureImagePath);
-            if (imgFile.exists()) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                imgBtnTakePhoto.setImageBitmap(myBitmap);
+        btnCreateAdvertTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
-        }
-    }
-
-    public String getCurrentTimeStamp() {
-        return new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
-    }
-
-    private void openBackCamera() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = timeStamp + ".jpg";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        pictureImagePath = storageDir.getAbsolutePath() + "/" + imageFileName;
-        File file = new File(pictureImagePath);
-        Uri outputFileUri = Uri.fromFile(file);
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        startActivityForResult(cameraIntent, 1);
+        });
     }
 
     private String getBase64ImageString() {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.iconaddphoto);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
-        return Base64.encodeToString(stream.toByteArray(),Base64.DEFAULT );
+        return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
     }
 
     private void checkFields() {
