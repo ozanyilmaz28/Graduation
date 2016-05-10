@@ -53,7 +53,7 @@ public class AdvertListActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     GetUserAdvertList task;
     WebServiceMethod method;
-    Boolean bool_ = false;
+    int order_ = 0;
 
     String selectedSub = "";
     String[] cat;
@@ -143,17 +143,17 @@ public class AdvertListActivity extends AppCompatActivity {
                     btnAdvertListOrder_.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Collections.sort(advertList, new Comparator<Advert>() {
-                                @Override
-                                public int compare(Advert p1, Advert p2) {
-                                    bool_ = !bool_;
-                                    if (bool_)
+                            if (order_ == 0) {
+                                Collections.sort(advertList, new Comparator<Advert>() {
+                                    @Override
+                                    public int compare(Advert p1, Advert p2) {
+                                        order_ = 1;
                                         return p1.getAdvtPrice() - p2.getAdvtPrice();
-                                    else
-                                        return p2.getAdvtPrice() - p1.getAdvtPrice();
-                                }
+                                    }
 
-                            });
+                                });
+                            } else
+                                Collections.reverse(advertList);
 
                             advertAdapter = new AdvertAdapter(AdvertListActivity.this, R.layout.custom_advert_list, advertList);
                             listAdvert_.setAdapter(advertAdapter);

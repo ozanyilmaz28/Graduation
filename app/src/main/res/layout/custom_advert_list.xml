@@ -23,12 +23,13 @@
             android:layout_alignLeft="@+id/txtAdvertListPrice"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center|left"
-            android:layout_marginRight="5dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_toLeftOf="@+id/txtAdvertListPrice"
+            android:layout_toStartOf="@+id/txtAdvertListPrice">
 
             <TextView
                 android:id="@+id/txtAdvertListHeader"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginLeft="5dp"
@@ -37,7 +38,7 @@
 
             <TextView
                 android:id="@+id/txtAdvertListCategory"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginLeft="5dp"
@@ -47,7 +48,7 @@
 
             <TextView
                 android:id="@+id/txtAdvertListDate"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginLeft="5dp"
@@ -62,6 +63,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="TextView"
             android:textSize="25dp" />
 
