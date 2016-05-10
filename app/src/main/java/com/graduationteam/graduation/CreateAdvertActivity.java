@@ -6,7 +6,9 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -177,7 +179,31 @@ public class CreateAdvertActivity extends Activity {
         options.inSampleSize = 4;
 
         Bitmap bitmap = BitmapFactory.decodeFile(this.imagePath, options);
+        try {
+            ExifInterface ei = new ExifInterface(this.imagePath.toString());
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    bitmap = rotateImage(bitmap, 90);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    bitmap = rotateImage(bitmap, 180);
+                    break;
+            }
+        } catch (Exception e) {
+            Log.d(e.toString(), "");
+        }
+
         this.imgBtnTakePhoto.setImageBitmap(bitmap);
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        return retVal;
     }
 
     public String getCurrentTimeStamp() {
@@ -213,6 +239,7 @@ public class CreateAdvertActivity extends Activity {
         imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
         startActivityForResult(imageIntent, TAKE_PHOTO_CODE);
     }*/
+
 
     private void checkFields() {
         selectedMainCategoryID_ = spinnerMainCategory_.getSelectedItemPosition();
