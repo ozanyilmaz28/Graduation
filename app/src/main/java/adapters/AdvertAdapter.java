@@ -3,6 +3,7 @@ package adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.http.HttpResponseCache;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.graduationteam.graduation.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import entities.Advert;
@@ -27,11 +32,14 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
     Context context;
     String url_ = "";
 
+    ImageLoader imageLoader;
+
     public AdvertAdapter(Context context, int resource,
                          List<Advert> objects) {
 
-
         super(context, resource, objects);
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(context));
     }
 
 
@@ -39,7 +47,7 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final Advert adverts = getItem(position);
-        View myRow = null;
+        View myRow = convertView;
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,12 +67,17 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
         txtAdvertCategoryCode.setText(adverts.getAdvtCategoryCode());
         txtAdvertPrice.setText(String.valueOf(adverts.getAdvtPrice()) + "\nTL");
 
-        if (!String.valueOf(adverts.getAdvtImageLink()).equals("-")) {
+        if (!String.valueOf(adverts.getAdvtImageLink()).equals("-") && !String.valueOf(adverts.getAdvtImageLink()).equals("")) {
             url_ = adverts.getAdvtImageLink().replace("\\", "/");
             if (!(adverts.getAdvtImageLink().indexOf("http") > -1))
                 url_ = "http://" + url_;
-            new DownloadImageTask((imgButton)).execute(url_);
+            imageLoader.displayImage(url_, imgButton);
+            /*Bitmap bit_ = downloadBitmap(url_);
+            if (bit_ != null)
+                imgButton.setImageBitmap(bit_);*/
+            //new DownloadImageTask((imgButton)).execute(url_);
         }
+
         return myRow;
     }
 
@@ -90,7 +103,35 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
 
         protected void onPostExecute(Bitmap result) {
             //bmImage.setBackgroundResource(0);
-            bmImage.setImageBitmap(result);
+            if (result != null)
+                bmImage.setImageBitmap(result);
         }
+    }
+
+
+    private Bitmap downloadBitmap(String url) {
+        HttpURLConnection urlConnection = null;
+        try {
+            URL uri = new URL(url);
+            urlConnection = (HttpURLConnection) uri.openConnection();
+            int statusCode = urlConnection.getResponseCode();
+            if (statusCode != HttpURLConnection.HTTP_OK) {
+                return null;
+            }
+
+            InputStream inputStream = urlConnection.getInputStream();
+            if (inputStream != null) {
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                return bitmap;
+            }
+        } catch (Exception e) {
+            urlConnection.disconnect();
+            Log.w("ImageDownloader", "Error downloading image from " + url);
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+        }
+        return null;
     }
 }
