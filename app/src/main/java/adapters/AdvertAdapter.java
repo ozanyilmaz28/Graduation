@@ -81,7 +81,7 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
         return myRow;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    /*private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
         public DownloadImageTask(ImageView bmImage) {
@@ -106,10 +106,10 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
             if (result != null)
                 bmImage.setImageBitmap(result);
         }
-    }
+    }*/
 
 
-    private Bitmap downloadBitmap(String url) {
+    /*private Bitmap downloadBitmap(String url) {
         HttpURLConnection urlConnection = null;
         try {
             URL uri = new URL(url);
@@ -133,5 +133,5 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
             }
         }
         return null;
-    }
+    }*/
 }

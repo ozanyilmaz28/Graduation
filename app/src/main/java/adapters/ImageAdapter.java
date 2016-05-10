@@ -14,23 +14,36 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.graduationteam.graduation.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import java.util.List;
+
+import entities.Advert;
 
 public class ImageAdapter extends BaseAdapter {
     // Keep all Images in array
+    List<Advert> list_;
+    String imageLink;
+    Bitmap bitmap_;
+    ImageLoader imageLoader;
+
     public Integer[] mThumbIds = {
-            R.drawable.iconmainlistnotfoundbigger, R.drawable.iconmainlistnotfoundbigger,
-            R.drawable.iconmainlistnotfoundbigger, R.drawable.iconmainlistnotfoundbigger,
-            R.drawable.iconmainlistnotfoundbigger, R.drawable.iconmainlistnotfoundbigger,
-            R.drawable.iconmainlistnotfoundbigger, R.drawable.iconmainlistnotfoundbigger,
-            R.drawable.iconmainlistnotfoundbigger, R.drawable.iconmainlistnotfoundbigger,
-            R.drawable.iconmainlistnotfoundbigger, R.drawable.iconmainlistnotfoundbigger,
-            R.drawable.iconmainlistnotfoundbigger, R.drawable.iconmainlistnotfoundbigger,
             R.drawable.iconmainlistnotfoundbigger
     };
     private Context mContext;
 
     // Constructor
     public ImageAdapter(Context c) {
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(c));
+        mContext = c;
+    }
+
+    public ImageAdapter(Context c, List<Advert> advertList) {
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(c));
+        list_ = advertList;
         mContext = c;
     }
 
@@ -59,14 +72,21 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
             //re-using if already here
         }
-        imageView.setImageResource(mThumbIds[position]);
+
+        if (list_ != null && list_.size() > 0)
+            imageLink = list_.get(position).getAdvtImageLink();
+
+        imageView.setImageResource(mThumbIds[0]);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setAdjustViewBounds(true);
         imageView.setLayoutParams(new GridView.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT));
 
-        Bitmap m_d = BitmapFactory.decodeResource(mContext.getResources(),
-                mThumbIds[position]);
+        if (list_ != null && list_.size() > 0 && !String.valueOf(imageLink).equals("-")) {
+            bitmap_ = null;
+        } else
+            bitmap_ = BitmapFactory.decodeResource(mContext.getResources(),
+                    mThumbIds[0]);
 
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -76,10 +96,11 @@ public class ImageAdapter extends BaseAdapter {
         int imgHeight = (((size.y) - 80) * 15 / 100);
 
 
-        if (m_d != null) {
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(m_d, imgWidth_, imgHeight, true);
+        if (bitmap_ != null) {
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap_, imgWidth_, imgHeight, true);
             imageView.setImageBitmap(resizedBitmap);
-        }
+        } else
+            imageLoader.displayImage(imageLink, imageView);
         return imageView;
     }
 }
