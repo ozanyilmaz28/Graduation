@@ -89,6 +89,7 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
         }
 
         protected void onPostExecute(Bitmap result) {
+            //bmImage.setBackgroundResource(0);
             bmImage.setImageBitmap(result);
         }
     }

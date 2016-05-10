@@ -147,8 +147,8 @@ public class CreateAdvertActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                startActivity(intent);
+                /*Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                startActivity(intent);*/
             }
         });
 
