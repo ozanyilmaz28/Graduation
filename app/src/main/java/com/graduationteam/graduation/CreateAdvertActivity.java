@@ -2,9 +2,11 @@ package com.graduationteam.graduation;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,7 +50,7 @@ public class CreateAdvertActivity extends Activity {
     Button saveAdvert, btnCreateAdvertTakePhoto;
     Spinner spinnerMainCategory_, spinnerSubCategory_;
     SpinnerAdapter adapterSpinner, subSpinner;
-    String baseImage_, image_;
+    String image_;
     ProgressDialog progressDialog;
     SaveAdvert task;
     WebServiceMethod method;
@@ -61,6 +63,7 @@ public class CreateAdvertActivity extends Activity {
 
     //Foto Çekimi
     int TAKE_PHOTO_CODE = 0;
+    String imagePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +126,6 @@ public class CreateAdvertActivity extends Activity {
             }
         });
 
-
-        baseImage_ = getBase64ImageString();
-
         saveAdvert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,21 +136,83 @@ public class CreateAdvertActivity extends Activity {
         btnCreateAdvertTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                performAddPhoto();
             }
         });
     }
 
+    private void performAddPhoto() {
+        String timeStamp = getCurrentTimeStamp();
+        String fileName = "Food_Shot_" + timeStamp + ".jpg";
+
+        this.imagePath = Environment.getExternalStorageDirectory() + "/images/" + fileName;
+
+        File file = new File(this.imagePath);
+        file.getParentFile().mkdirs();
+
+        try {
+            file.createNewFile();
+        } catch (Exception e) {
+            Log.d(e.toString(), "");
+        }
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+
+        startActivityForResult(intent, TAKE_PHOTO_CODE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == TAKE_PHOTO_CODE) {
+            if (resultCode == RESULT_OK) {
+                this.onPhotoTaken();
+            }
+        }
+    }
+
+    private void onPhotoTaken() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(this.imagePath, options);
+        this.imgBtnTakePhoto.setImageBitmap(bitmap);
+    }
+
     public String getCurrentTimeStamp() {
-        return new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+        return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
     }
 
     private String getBase64ImageString() {
+        BitmapDrawable drawable = (BitmapDrawable) imgBtnTakePhoto.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+    }
+
+   /* private String getBase64ImageString() {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.iconaddphoto);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
         return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-    }
+    }*/
+
+    /*public void takePhoto() {
+        Intent imageIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        String timeStamp = getCurrentTimeStamp();
+
+        File imagesFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyImages");
+        if (!imagesFolder.exists())
+            imagesFolder.mkdirs();
+
+        File image = new File(imagesFolder, "QR_" + timeStamp + ".png");
+        Uri uriSavedImage = Uri.fromFile(image);
+
+        imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+        startActivityForResult(imageIntent, TAKE_PHOTO_CODE);
+    }*/
 
     private void checkFields() {
         selectedMainCategoryID_ = spinnerMainCategory_.getSelectedItemPosition();
@@ -162,7 +224,7 @@ public class CreateAdvertActivity extends Activity {
         advertPhone_ = edtPhone_.getText().toString().trim();
         advertMail_ = edtMail_.getText().toString().trim();
         advertPrice_ = edtPrice_.getText().toString().trim();
-        image_ = "";
+        image_ = getBase64ImageString();
 
         if (selectedMainCategoryID_ > 0) {
             if (selectedSubCategoryID_ != 0) {
@@ -212,7 +274,7 @@ public class CreateAdvertActivity extends Activity {
                 method.request.addProperty("UserID_", UserInfo.UserID);
                 method.request.addProperty("Phone_", advertPhone_);
                 method.request.addProperty("Mail_", advertMail_);
-                method.request.addProperty("Image_", baseImage_);
+                method.request.addProperty("Image_", image_);
                 method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
                 method.request.addProperty("TR_", true);
 
