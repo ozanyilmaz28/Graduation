@@ -31,7 +31,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/btnAdvertListOrder"
-                android:layout_alignParentLeft="true"></Spinner>
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/btnAdvertListOrder"
+                android:layout_toStartOf="@+id/btnAdvertListOrder"></Spinner>
 
             <ImageButton
                 android:id="@+id/btnAdvertListOrder"
@@ -39,8 +41,9 @@
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/iconupdown"
+                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="2dp" />
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
         <ListView

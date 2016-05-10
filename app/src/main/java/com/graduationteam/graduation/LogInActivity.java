@@ -126,6 +126,15 @@ public class LogInActivity extends AppCompatActivity {
                         newPage_ = new Intent(LogInActivity.this, CreateAdvertActivity.class);
                         startActivity(newPage_);
                         finish();
+                    } else if (UserInfo.SelectedPage == KeyCodes.MainToMyPage) {
+                        UserInfo.MethodName = "GetUserAdvertList";
+                        newPage_ = new Intent(LogInActivity.this, AdvertListActivity.class);
+                        startActivity(newPage_);
+                        finish();
+                    } else if (UserInfo.SelectedPage == KeyCodes.MainToSettings) {
+                        newPage_ = new Intent(LogInActivity.this, SettingsActivity.class);
+                        startActivity(newPage_);
+                        finish();
                     }
                 } else {
                     Toast.makeText(LogInActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();

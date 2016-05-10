@@ -50,8 +50,8 @@ public class MainList extends AppCompatActivity {
                     intent = new Intent(MainList.this, CreateAdvertActivity.class);
                     startActivity(intent);
                 } else {
-                    intent = new Intent(MainList.this, LogInActivity.class);
                     UserInfo.SelectedPage = KeyCodes.MainToCreateAdvert;
+                    intent = new Intent(MainList.this, LogInActivity.class);
                     startActivity(intent);
                 }
             }
@@ -62,10 +62,12 @@ public class MainList extends AppCompatActivity {
             public void onClick(View v) {
                 controller_ = new Controller();
                 if (controller_.isUserLoggedIn(getApplicationContext())) {
+                    UserInfo.SelectedPage = KeyCodes.MainToMyPage;
                     UserInfo.MethodName = "GetUserAdvertList";
                     intent = new Intent(MainList.this, AdvertListActivity.class);
                     startActivity(intent);
                 } else {
+                    UserInfo.SelectedPage = KeyCodes.MainToMyPage;
                     intent = new Intent(MainList.this, LogInActivity.class);
                     startActivity(intent);
                 }
@@ -80,6 +82,7 @@ public class MainList extends AppCompatActivity {
                     intent = new Intent(MainList.this, SettingsActivity.class);
                     startActivity(intent);
                 } else {
+                    UserInfo.SelectedPage = KeyCodes.MainToSettings;
                     intent = new Intent(MainList.this, LogInActivity.class);
                     startActivity(intent);
                 }
