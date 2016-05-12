@@ -49,12 +49,12 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return list_.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mThumbIds[position];
+        return list_.get(position);
     }
 
     @Override

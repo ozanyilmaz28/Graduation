@@ -28,7 +28,7 @@ public class WebServiceMethod {
         envelope.dotNet = true;
         envelope.setOutputSoapObject(request);
 
-        androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL, 15000);
+        androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL, 25000);
         androidHttpTransport.debug = true;
 
         try {

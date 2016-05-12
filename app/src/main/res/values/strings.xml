@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Graduation</string>
+    <string name="app_name">Kolay Sat</string>
     <string name="CreateAdvertViewPleaseEnterDescription">Lütfen ilan açıklamanızı giriniz... (En fazla 1000 karakter)</string>
     <string name="CreateAdvertViewUseLocationInfo">Konum bilgisi kullan...</string>
     <string name="CreateAdvertViewPrice">Fiyat(TL)...</string>

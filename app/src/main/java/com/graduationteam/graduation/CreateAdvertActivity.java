@@ -50,7 +50,8 @@ public class CreateAdvertActivity extends Activity {
     public static int[] subIcons_ = {R.drawable.iconcategorypleaseselect};
 
     ImageView imgBtnTakePhoto;
-    Button saveAdvert, btnCreateAdvertTakePhoto;
+    Button saveAdvert;
+    ImageButton btnCreateAdvertTakePhoto;
     Spinner spinnerMainCategory_, spinnerSubCategory_;
     SpinnerAdapter adapterSpinner, subSpinner;
     String image_;
@@ -81,7 +82,7 @@ public class CreateAdvertActivity extends Activity {
         spinnerMainCategory_ = (Spinner) findViewById(R.id.createAdvertMainCategory);
         spinnerSubCategory_ = (Spinner) findViewById(R.id.createAdvertSubCategory);
         saveAdvert = (Button) findViewById(R.id.pageCreateAdvertBtnSave);
-        btnCreateAdvertTakePhoto = (Button) findViewById(R.id.btnCreateAdvertTakePhoto);
+        btnCreateAdvertTakePhoto = (ImageButton) findViewById(R.id.btnCreateAdvertTakePhoto);
 
         spinnerSubCategory_.setVisibility(View.GONE);
         edtPhone_.setText(UserInfo.Phone);
@@ -312,7 +313,7 @@ public class CreateAdvertActivity extends Activity {
                 method.request.addProperty("UserID_", UserInfo.UserID);
                 method.request.addProperty("Phone_", advertPhone_);
                 method.request.addProperty("Mail_", advertMail_);
-                method.request.addProperty("Image_", image_);
+                method.request.addProperty("Image_", "");
                 method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
                 method.request.addProperty("TR_", true);
 
