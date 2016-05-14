@@ -76,24 +76,23 @@ public class ImageAdapter extends BaseAdapter {
         if (list_ != null && list_.size() > 0)
             imageLink = list_.get(position).getAdvtImageLink();
 
-        imageView.setImageResource(mThumbIds[0]);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setAdjustViewBounds(true);
-        imageView.setLayoutParams(new GridView.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT));
-
-        if (list_ != null && list_.size() > 0 && !String.valueOf(imageLink).equals("-")) {
-            bitmap_ = null;
-        } else
-            bitmap_ = BitmapFactory.decodeResource(mContext.getResources(),
-                    mThumbIds[0]);
-
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int imgWidth_ = ((size.x) * 3 / 10);
         int imgHeight = (((size.y) - 80) * 15 / 100);
+
+        imageView.setImageResource(mThumbIds[0]);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setAdjustViewBounds(true);
+        imageView.setLayoutParams(new GridView.LayoutParams(imgWidth_, imgHeight));
+
+        if (list_ != null && list_.size() > 0 && !String.valueOf(imageLink).equals("-")) {
+            bitmap_ = null;
+        } else
+            bitmap_ = BitmapFactory.decodeResource(mContext.getResources(),
+                    mThumbIds[0]);
 
 
         if (bitmap_ != null) {

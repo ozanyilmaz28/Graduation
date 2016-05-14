@@ -234,7 +234,7 @@ public class CreateAdvertActivity extends Activity {
         BitmapDrawable drawable = (BitmapDrawable) imgBtnTakePhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 10, stream);
         return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
     }
 
@@ -305,7 +305,7 @@ public class CreateAdvertActivity extends Activity {
                 method.request.addProperty("UserID_", UserInfo.UserID);
                 method.request.addProperty("Phone_", advertPhone_);
                 method.request.addProperty("Mail_", advertMail_);
-                method.request.addProperty("Image_", "");
+                method.request.addProperty("Image_", image_);
                 method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
                 method.request.addProperty("TR_", true);
 
