@@ -62,7 +62,7 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
         TextView txtAdvertPrice = (TextView) myRow.findViewById(R.id.txtAdvertListPrice);
         ImageView imgButton = (ImageView) myRow.findViewById(R.id.imgAdvertList);
 
-        txtAdvertHeader.setText(adverts.getAdvtDescription().substring(0, 29) + "...");
+        txtAdvertHeader.setText(adverts.getAdvtDescription().substring(0, 19) + "...");
         txtAdvertDate.setText(adverts.getAdvtDateTime());
         txtAdvertCategoryCode.setText(adverts.getAdvtCategoryCode());
         if (adverts.getAdvtPrice() > 0)
@@ -72,14 +72,8 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
 
 
         if (!String.valueOf(adverts.getAdvtImageLink()).equals("-") && !String.valueOf(adverts.getAdvtImageLink()).equals("")) {
-            /*url_ = adverts.getAdvtImageLink().replace("\\", "/");
-            if (!(adverts.getAdvtImageLink().indexOf("http") > -1))
-                url_ = "http://" + url_;
+            url_ = adverts.getAdvtImageLink().toString();
             imageLoader.displayImage(url_, imgButton);
-            /*Bitmap bit_ = downloadBitmap(url_);
-            if (bit_ != null)
-                imgButton.setImageBitmap(bit_);*/
-            //new DownloadImageTask((imgButton)).execute(url_);
         }
 
         return myRow;
