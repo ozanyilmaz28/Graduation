@@ -10,8 +10,8 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:background="@drawable/iconcamera" />
+        android:background="@drawable/iconcamera"
+        android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -25,9 +25,9 @@
             android:layout_alignLeft="@+id/txtAdvertListPrice"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center|left"
-            android:orientation="vertical"
             android:layout_toLeftOf="@+id/txtAdvertListPrice"
-            android:layout_toStartOf="@+id/txtAdvertListPrice">
+            android:layout_toStartOf="@+id/txtAdvertListPrice"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtAdvertListHeader"
@@ -57,15 +57,33 @@
                 android:layout_marginTop="2dp"
                 android:text="TextView"
                 android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/txtAdvertListPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtAdvertListMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtAdvertListID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/txtAdvertListPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:gravity="center"
             android:text="TextView"
             android:textSize="25dp" />
 
