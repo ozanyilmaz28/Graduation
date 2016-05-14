@@ -65,10 +65,14 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
         txtAdvertHeader.setText(adverts.getAdvtDescription().substring(0, 29) + "...");
         txtAdvertDate.setText(adverts.getAdvtDateTime());
         txtAdvertCategoryCode.setText(adverts.getAdvtCategoryCode());
-        txtAdvertPrice.setText(String.valueOf(adverts.getAdvtPrice()) + "\nTL");
+        if (adverts.getAdvtPrice() > 0)
+            txtAdvertPrice.setText(String.valueOf(adverts.getAdvtPrice()) + "\nTL");
+        else
+            txtAdvertPrice.setText("");
+
 
         if (!String.valueOf(adverts.getAdvtImageLink()).equals("-") && !String.valueOf(adverts.getAdvtImageLink()).equals("")) {
-            url_ = adverts.getAdvtImageLink().replace("\\", "/");
+            /*url_ = adverts.getAdvtImageLink().replace("\\", "/");
             if (!(adverts.getAdvtImageLink().indexOf("http") > -1))
                 url_ = "http://" + url_;
             imageLoader.displayImage(url_, imgButton);

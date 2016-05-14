@@ -60,6 +60,7 @@ public class CreateAdvertActivity extends Activity {
     WebServiceMethod method;
     EditText edtDescription_, edtPhone_, edtMail_, edtPrice_;
     int subID_;
+    boolean isPriceMandatory_;
 
     //Fields for sending
     int selectedMainCategoryID_, selectedSubCategoryID_;
@@ -94,13 +95,16 @@ public class CreateAdvertActivity extends Activity {
         spinnerMainCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                isPriceMandatory_ = true;
                 if (spinnerMainCategory_.getSelectedItemPosition() != 0 && spinnerMainCategory_.getSelectedItemPosition() != 1 && spinnerMainCategory_.getSelectedItemPosition() != 6) {
                     spinnerSubCategory_.setVisibility(View.VISIBLE);
                     selectedSubCategoryID_ = 0;
                     if (spinnerMainCategory_.getSelectedItemPosition() == 2)
                         subID_ = R.array.SubCategories2;
-                    if (spinnerMainCategory_.getSelectedItemPosition() == 3)
+                    if (spinnerMainCategory_.getSelectedItemPosition() == 3) {
+                        isPriceMandatory_ = false;
                         subID_ = R.array.SubCategories3;
+                    }
                     if (spinnerMainCategory_.getSelectedItemPosition() == 4)
                         subID_ = R.array.SubCategories4;
                     if (spinnerMainCategory_.getSelectedItemPosition() == 5)
@@ -123,6 +127,10 @@ public class CreateAdvertActivity extends Activity {
                     spinnerSubCategory_.setVisibility(View.GONE);
                     selectedSubCategoryID_ = -1;
                 }
+                if (isPriceMandatory_)
+                    edtPrice_.setVisibility(View.VISIBLE);
+                else
+                    edtPrice_.setVisibility(View.GONE);
             }
 
             @Override
@@ -230,29 +238,6 @@ public class CreateAdvertActivity extends Activity {
         return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
     }
 
-   /* private String getBase64ImageString() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.iconaddphoto);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
-        return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-    }*/
-
-    /*public void takePhoto() {
-        Intent imageIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        String timeStamp = getCurrentTimeStamp();
-
-        File imagesFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyImages");
-        if (!imagesFolder.exists())
-            imagesFolder.mkdirs();
-
-        File image = new File(imagesFolder, "QR_" + timeStamp + ".png");
-        Uri uriSavedImage = Uri.fromFile(image);
-
-        imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-        startActivityForResult(imageIntent, TAKE_PHOTO_CODE);
-    }*/
-
-
     private void checkFields() {
         selectedMainCategoryID_ = spinnerMainCategory_.getSelectedItemPosition();
         if (spinnerSubCategory_.getVisibility() == View.GONE)
@@ -270,12 +255,19 @@ public class CreateAdvertActivity extends Activity {
                 if (!advertDescription_.equals(null) && !advertDescription_.equals("")) {
                     if (advertDescription_.length() >= 30) {
                         if ((!advertPhone_.equals(null) && !advertPhone_.equals("")) || (!advertMail_.equals(null) && !advertMail_.equals(""))) {
-                            if (!advertPrice_.equals(null) && !advertPrice_.equals("")) {
-                                task = new SaveAdvert();
-                                task.execute();
-                            } else {
+                            if ((advertPrice_.equals(null) || advertPrice_.equals("")) && isPriceMandatory_) {
                                 Toast.makeText(CreateAdvertActivity.this, "Fiyat boş bırakılamaz...", Toast.LENGTH_SHORT).show();
                                 edtPrice_.requestFocus();
+                            } else {
+                                if (!isPriceMandatory_)
+                                    advertPrice_ = "0";
+                                if (Integer.parseInt(advertPrice_) <= 0 && isPriceMandatory_) {
+                                    Toast.makeText(CreateAdvertActivity.this, "Fiyat 0'dan büyük olmalıdır...", Toast.LENGTH_SHORT).show();
+                                    edtPrice_.requestFocus();
+                                } else {
+                                    task = new SaveAdvert();
+                                    task.execute();
+                                }
                             }
                         } else {
                             Toast.makeText(CreateAdvertActivity.this, "Telefon numarası ya da email adresi giriniz...", Toast.LENGTH_SHORT).show();
