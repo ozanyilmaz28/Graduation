@@ -147,6 +147,15 @@ public class MainList extends AppCompatActivity {
                     }
                     adapter_ = new ImageAdapter(getApplicationContext(), advertList);
                     gridView.setAdapter(adapter_);
+
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+
+                        }
+                    });
                     progressDialog.dismiss();
 
                 } else {

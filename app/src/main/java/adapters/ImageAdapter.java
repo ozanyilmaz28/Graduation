@@ -10,13 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.graduationteam.graduation.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.util.List;
 
@@ -85,9 +88,11 @@ public class ImageAdapter extends BaseAdapter {
         int imgHeight = (((size.y) - 80) * 15 / 100);
 
         imageView.setImageResource(mThumbIds[0]);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setAdjustViewBounds(true);
-        imageView.setLayoutParams(new GridView.LayoutParams(imgWidth_, imgHeight));
+        imageView.requestLayout();
+        GridView.LayoutParams params = new GridView.LayoutParams(imgWidth_, imgHeight);
+        imageView.setLayoutParams(params);
 
         if (list_ != null && list_.size() > 0 && !String.valueOf(imageLink).equals("-")) {
             bitmap_ = null;
@@ -99,8 +104,10 @@ public class ImageAdapter extends BaseAdapter {
         if (bitmap_ != null) {
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap_, imgWidth_, imgHeight, true);
             imageView.setImageBitmap(resizedBitmap);
-        } else
-            imageLoader.displayImage(imageLink, imageView);
+        } else {
+            ImageSize imgSize = new ImageSize(imgWidth_,imgHeight);
+            imageLoader.displayImage(imageLink, imageView,imgSize);
+        }
         return imageView;
     }
 }
