@@ -17,9 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.graduationteam.graduation.R;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 
@@ -85,12 +87,11 @@ public class ImageAdapter extends BaseAdapter {
         Point size = new Point();
         display.getSize(size);
         int imgWidth_ = ((size.x) * 3 / 10);
-        int imgHeight = (((size.y) - 80) * 15 / 100);
+        int imgHeight = (((size.y) - 60) * 15 / 100);
 
         imageView.setImageResource(mThumbIds[0]);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setAdjustViewBounds(true);
-        imageView.requestLayout();
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         GridView.LayoutParams params = new GridView.LayoutParams(imgWidth_, imgHeight);
         imageView.setLayoutParams(params);
 
@@ -105,8 +106,15 @@ public class ImageAdapter extends BaseAdapter {
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap_, imgWidth_, imgHeight, true);
             imageView.setImageBitmap(resizedBitmap);
         } else {
-            ImageSize imgSize = new ImageSize(imgWidth_,imgHeight);
-            imageLoader.displayImage(imageLink, imageView,imgSize);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .imageScaleType(ImageScaleType.EXACTLY)
+                    .considerExifParams(true)
+                    .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
+                    //.displayer(new RoundedBitmapDisplayer(15))
+                    .build();
+            imageLoader.displayImage(imageLink, imageView, options);
         }
         return imageView;
     }

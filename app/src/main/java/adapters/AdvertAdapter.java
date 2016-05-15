@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.graduationteam.graduation.R;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 
@@ -72,7 +75,15 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
 
         if (!String.valueOf(adverts.getAdvtImageLink()).equals("-") && !String.valueOf(adverts.getAdvtImageLink()).equals("")) {
             url_ = adverts.getAdvtImageLink().toString();
-            imageLoader.displayImage(url_, imgButton);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .imageScaleType(ImageScaleType.EXACTLY)
+                    .considerExifParams(true)
+                    .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
+                            //.displayer(new RoundedBitmapDisplayer(15))
+                    .build();
+            imageLoader.displayImage(url_, imgButton,options);
         }
 
         return myRow;
