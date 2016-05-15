@@ -68,7 +68,7 @@ public class CreateAdvertActivity extends Activity {
 
     //Foto Çekimi
     int TAKE_PHOTO_CODE = 0;
-    String imagePath = "";
+    String imagePath = "", baseImage = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +160,8 @@ public class CreateAdvertActivity extends Activity {
                 startActivity(intent);*/
             }
         });
+
+        baseImage = getBase64ImageString();
 
     }
 
@@ -305,7 +307,10 @@ public class CreateAdvertActivity extends Activity {
                 method.request.addProperty("UserID_", UserInfo.UserID);
                 method.request.addProperty("Phone_", advertPhone_);
                 method.request.addProperty("Mail_", advertMail_);
+                if(!baseImage.equals(image_))
                 method.request.addProperty("Image_", image_);
+                else
+                    method.request.addProperty("Image_", "");
                 method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
                 method.request.addProperty("TR_", true);
 

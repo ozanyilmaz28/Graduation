@@ -54,9 +54,6 @@ public class MainList extends AppCompatActivity {
         btnMyPage = (Button) findViewById(R.id.btnMyPage);
         btnSettings = (Button) findViewById(R.id.btnSettings);
 
-        task = new Top15Advert();
-        task.execute();
-
         btnCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,7 +127,6 @@ public class MainList extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            progressDialog.dismiss();
             if (method.intPropertyCount == 1) {
                 method.objResult = (SoapObject) method.objMain.getProperty(0);
                 if (Boolean.parseBoolean(method.objResult.getProperty("Success").toString())) {
@@ -151,13 +147,17 @@ public class MainList extends AppCompatActivity {
                     }
                     adapter_ = new ImageAdapter(getApplicationContext(), advertList);
                     gridView.setAdapter(adapter_);
+                    progressDialog.dismiss();
 
                 } else {
                     gridView.setAdapter(new ImageAdapter(getApplicationContext()));
+                    progressDialog.dismiss();
                     Toast.makeText(MainList.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
                 }
-            } else
+            } else {
+                progressDialog.dismiss();
                 Toast.makeText(MainList.this, "Web Service'ten Cevap Alınamıyor!", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -172,4 +172,13 @@ public class MainList extends AppCompatActivity {
         protected void onProgressUpdate(Void... values) {
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        task = new Top15Advert();
+        task.execute();
+
+    }
+
 }
