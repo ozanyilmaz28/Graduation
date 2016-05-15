@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.graduationteam.graduation.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -69,14 +70,12 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(mContext);
-            //just creating the view if not already present
         } else {
             imageView = (ImageView) convertView;
-            //re-using if already here
         }
 
         if (list_ != null && list_.size() > 0)
@@ -101,6 +100,13 @@ public class ImageAdapter extends BaseAdapter {
             bitmap_ = BitmapFactory.decodeResource(mContext.getResources(),
                     mThumbIds[0]);
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "You Clicked " + list_.get(position).getAdvtID(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         if (bitmap_ != null) {
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap_, imgWidth_, imgHeight, true);
@@ -112,7 +118,6 @@ public class ImageAdapter extends BaseAdapter {
                     .imageScaleType(ImageScaleType.EXACTLY)
                     .considerExifParams(true)
                     .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
-                    //.displayer(new RoundedBitmapDisplayer(15))
                     .build();
             imageLoader.displayImage(imageLink, imageView, options);
         }
