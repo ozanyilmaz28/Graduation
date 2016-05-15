@@ -92,8 +92,6 @@ public class AdvertListActivity extends AppCompatActivity {
         subCategory_.setAdapter(adapterSpinner);
         task = new GetUserAdvertList();
         task.execute();
-
-
     }
 
     private class GetUserAdvertList extends AsyncTask<Void, Void, Void> {
@@ -135,6 +133,7 @@ public class AdvertListActivity extends AppCompatActivity {
                         advert.setAdvtCategoryCode(method.objResultDetailsData.getProperty("MainCategoryCode").toString());
                         advert.setAdvtPrice(Integer.parseInt(method.objResultDetailsData.getProperty("Price").toString()));
                         advert.setAdvtImageLink(method.objResultDetailsData.getProperty("ImageLink").toString());
+                        advert.setAdvtIsOpen(Boolean.parseBoolean(method.objResultDetailsData.getProperty("IsOpen").toString()));
                         advertList.add(advert);
                     }
                     allList = advertList;
@@ -188,8 +187,7 @@ public class AdvertListActivity extends AppCompatActivity {
                         }
                     });
 
-                    if(UserInfo.SelectedPage == KeyCodes.MainToMyPage)
-                    {
+                    if (UserInfo.SelectedPage == KeyCodes.MainToMyPage) {
                         listAdvert_.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                             @Override
                             public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, long id) {
@@ -264,12 +262,15 @@ public class AdvertListActivity extends AppCompatActivity {
                 method.objResult = (SoapObject) method.objMain.getProperty(0);
                 if (Boolean.parseBoolean(method.objResult.getProperty("Success").toString())) {
                     Toast.makeText(AdvertListActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
-                    finish();
+
                 } else {
                     Toast.makeText(AdvertListActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
                 }
-            } else
+                task = new GetUserAdvertList();
+                task.execute();
+            } else {
                 Toast.makeText(AdvertListActivity.this, "Web Servis ile Bağlantı Kurulamadı!", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

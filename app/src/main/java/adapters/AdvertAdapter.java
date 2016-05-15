@@ -1,11 +1,13 @@
 package adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.graduationteam.graduation.R;
@@ -18,6 +20,8 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import java.util.List;
 
 import entities.Advert;
+import entities.KeyCodes;
+import entities.UserInfo;
 
 /**
  * Created by LA-173 on 20.03.2016.
@@ -51,6 +55,7 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
             myRow = convertView;
         }
 
+        RelativeLayout coloredLayout = (RelativeLayout) myRow.findViewById(R.id.advertListRelativeLayout);
         TextView txtAdvertHeader = (TextView) myRow.findViewById(R.id.txtAdvertListHeader);
         TextView txtAdvertDate = (TextView) myRow.findViewById(R.id.txtAdvertListDate);
         TextView txtAdvertCategoryCode = (TextView) myRow.findViewById(R.id.txtAdvertListCategory);
@@ -66,6 +71,13 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
         txtAdvertID.setText(String.valueOf(adverts.getAdvtID()));
         txtAdvertPhone.setText(adverts.getAdvtPhone());
         txtAdvertMail.setText(adverts.getAdvtMail());
+
+        if (UserInfo.SelectedPage == KeyCodes.MainToMyPage) {
+            if (adverts.getAdvtIsOpen())
+                coloredLayout.setBackgroundColor(Color.parseColor("#A9F5BC"));
+            else
+                coloredLayout.setBackgroundColor(Color.parseColor("#F78181"));
+        }
 
         if (adverts.getAdvtPrice() > 0)
             txtAdvertPrice.setText(String.valueOf(adverts.getAdvtPrice()));
@@ -83,7 +95,7 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
                     .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
                             //.displayer(new RoundedBitmapDisplayer(15))
                     .build();
-            imageLoader.displayImage(url_, imgButton,options);
+            imageLoader.displayImage(url_, imgButton, options);
         }
 
         return myRow;
