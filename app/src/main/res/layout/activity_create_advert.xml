@@ -23,6 +23,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/createAdvertLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:gravity="center|top"

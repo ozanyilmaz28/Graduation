@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class CreateAdvertActivity extends Activity {
 
     public static int[] subIcons_ = {R.drawable.iconcategorypleaseselect};
 
+    LinearLayout layout_;
     ImageView imgBtnTakePhoto;
     Button saveAdvert;
     ImageButton btnCreateAdvertTakePhoto;
@@ -75,6 +77,7 @@ public class CreateAdvertActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_advert);
 
+        layout_ = (LinearLayout)findViewById(R.id.createAdvertLinearLayout);
         edtDescription_ = (EditText) findViewById(R.id.pageCreateAdvertEdtDescription);
         edtPhone_ = (EditText) findViewById(R.id.pageCreateAdvertEdtPhone);
         edtMail_ = (EditText) findViewById(R.id.pageCreateAdvertEdtMail);
