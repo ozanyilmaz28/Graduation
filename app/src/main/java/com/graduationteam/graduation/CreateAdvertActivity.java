@@ -1,14 +1,16 @@
 package com.graduationteam.graduation;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +18,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,6 +28,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+
 import org.ksoap2.serialization.SoapObject;
 
 import java.io.ByteArrayOutputStream;
@@ -35,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import adapters.SpinnerAdapter;
+import entities.Advert;
 import entities.UserInfo;
 import entities.WebServiceMethod;
 
@@ -77,7 +85,7 @@ public class CreateAdvertActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_advert);
 
-        layout_ = (LinearLayout)findViewById(R.id.createAdvertLinearLayout);
+        layout_ = (LinearLayout) findViewById(R.id.createAdvertLinearLayout);
         edtDescription_ = (EditText) findViewById(R.id.pageCreateAdvertEdtDescription);
         edtPhone_ = (EditText) findViewById(R.id.pageCreateAdvertEdtPhone);
         edtMail_ = (EditText) findViewById(R.id.pageCreateAdvertEdtMail);
@@ -88,84 +96,94 @@ public class CreateAdvertActivity extends Activity {
         saveAdvert = (Button) findViewById(R.id.pageCreateAdvertBtnSave);
         btnCreateAdvertTakePhoto = (ImageButton) findViewById(R.id.btnCreateAdvertTakePhoto);
 
-        spinnerSubCategory_.setVisibility(View.GONE);
-        edtPhone_.setText(UserInfo.Phone);
-        edtMail_.setText(UserInfo.Email);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            Advert advtDataFromList = (Advert) extras.getSerializable("AdvertWithDetail");
+            if (advtDataFromList != null)
+                doManageVisibility(advtDataFromList);
+            else
+                Toast.makeText(CreateAdvertActivity.this, "Intent kullanım hatası!", Toast.LENGTH_SHORT).show();
 
-        adapterSpinner = new SpinnerAdapter(CreateAdvertActivity.this, getResources().getStringArray(R.array.MainCategories), categoryIcons_);
-        spinnerMainCategory_.setAdapter(adapterSpinner);
+        } else {
+            spinnerSubCategory_.setVisibility(View.GONE);
+            edtPhone_.setText(UserInfo.Phone);
+            edtMail_.setText(UserInfo.Email);
 
-        spinnerMainCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                isPriceMandatory_ = true;
-                if (spinnerMainCategory_.getSelectedItemPosition() != 0 && spinnerMainCategory_.getSelectedItemPosition() != 1 && spinnerMainCategory_.getSelectedItemPosition() != 6) {
-                    spinnerSubCategory_.setVisibility(View.VISIBLE);
-                    selectedSubCategoryID_ = 0;
-                    if (spinnerMainCategory_.getSelectedItemPosition() == 2)
-                        subID_ = R.array.SubCategories2;
-                    if (spinnerMainCategory_.getSelectedItemPosition() == 3) {
-                        isPriceMandatory_ = false;
-                        subID_ = R.array.SubCategories3;
+            adapterSpinner = new SpinnerAdapter(CreateAdvertActivity.this, getResources().getStringArray(R.array.MainCategories), categoryIcons_);
+            spinnerMainCategory_.setAdapter(adapterSpinner);
+
+            spinnerMainCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                    isPriceMandatory_ = true;
+                    if (spinnerMainCategory_.getSelectedItemPosition() != 0 && spinnerMainCategory_.getSelectedItemPosition() != 1 && spinnerMainCategory_.getSelectedItemPosition() != 6) {
+                        spinnerSubCategory_.setVisibility(View.VISIBLE);
+                        selectedSubCategoryID_ = 0;
+                        if (spinnerMainCategory_.getSelectedItemPosition() == 2)
+                            subID_ = R.array.SubCategories2;
+                        if (spinnerMainCategory_.getSelectedItemPosition() == 3) {
+                            isPriceMandatory_ = false;
+                            subID_ = R.array.SubCategories3;
+                        }
+                        if (spinnerMainCategory_.getSelectedItemPosition() == 4)
+                            subID_ = R.array.SubCategories4;
+                        if (spinnerMainCategory_.getSelectedItemPosition() == 5)
+                            subID_ = R.array.SubCategories5;
+                        subSpinner = new SpinnerAdapter(CreateAdvertActivity.this, getResources().getStringArray(subID_), subIcons_);
+                        spinnerSubCategory_.setAdapter(subSpinner);
+
+                        spinnerSubCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                selectedSubCategoryDesc_ = getResources().getStringArray(subID_)[position];
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                    } else {
+                        spinnerSubCategory_.setVisibility(View.GONE);
+                        selectedSubCategoryID_ = -1;
                     }
-                    if (spinnerMainCategory_.getSelectedItemPosition() == 4)
-                        subID_ = R.array.SubCategories4;
-                    if (spinnerMainCategory_.getSelectedItemPosition() == 5)
-                        subID_ = R.array.SubCategories5;
-                    subSpinner = new SpinnerAdapter(CreateAdvertActivity.this, getResources().getStringArray(subID_), subIcons_);
-                    spinnerSubCategory_.setAdapter(subSpinner);
-
-                    spinnerSubCategory_.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            selectedSubCategoryDesc_ = getResources().getStringArray(subID_)[position];
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-                } else {
-                    spinnerSubCategory_.setVisibility(View.GONE);
-                    selectedSubCategoryID_ = -1;
+                    if (isPriceMandatory_)
+                        edtPrice_.setVisibility(View.VISIBLE);
+                    else
+                        edtPrice_.setVisibility(View.GONE);
                 }
-                if (isPriceMandatory_)
-                    edtPrice_.setVisibility(View.VISIBLE);
-                else
-                    edtPrice_.setVisibility(View.GONE);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                }
+            });
 
-        saveAdvert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkFields();
-            }
-        });
+            saveAdvert.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkFields();
+                }
+            });
 
-        btnCreateAdvertTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performAddPhoto();
-            }
-        });
+            btnCreateAdvertTakePhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    performAddPhoto();
+                }
+            });
 
-        imgBtnTakePhoto.setOnClickListener(new View.OnClickListener() {
+            imgBtnTakePhoto.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
                 /*Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
                 startActivity(intent);*/
-            }
-        });
+                }
+            });
 
-        baseImage = getBase64ImageString();
+            baseImage = getBase64ImageString();
 
+        }
     }
 
     private void performAddPhoto() {
@@ -310,8 +328,8 @@ public class CreateAdvertActivity extends Activity {
                 method.request.addProperty("UserID_", UserInfo.UserID);
                 method.request.addProperty("Phone_", advertPhone_);
                 method.request.addProperty("Mail_", advertMail_);
-                if(!baseImage.equals(image_))
-                method.request.addProperty("Image_", image_);
+                if (!baseImage.equals(image_))
+                    method.request.addProperty("Image_", image_);
                 else
                     method.request.addProperty("Image_", "");
                 method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
@@ -351,5 +369,58 @@ public class CreateAdvertActivity extends Activity {
         @Override
         protected void onProgressUpdate(Void... values) {
         }
+    }
+
+    public void doManageVisibility(Advert data_) {
+        if (!data_.getAdvtImageLink().equals("-")) {
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.init(ImageLoaderConfiguration.createDefault(getApplicationContext()));
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .considerExifParams(true)
+                    .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
+                    .build();
+
+            LinearLayout linearLayout_ = (LinearLayout)findViewById(R.id.createAdvertLinearLayout);
+            linearLayout_.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+            imgBtnTakePhoto.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+            imageLoader.displayImage(data_.getAdvtImageLink(), imgBtnTakePhoto, options);
+        }
+
+        edtDescription_.setText(data_.getAdvtDescription());
+        edtMail_.setText(data_.getAdvtMail());
+        edtPhone_.setText(data_.getAdvtPhone());
+        if (data_.advtPrice > 0)
+            edtPrice_.setText(String.valueOf(data_.advtPrice));
+        else
+            edtPrice_.setVisibility(View.GONE);
+
+        String mainCat, subCat;
+        if (data_.advtCategoryCode.indexOf("-") > -1) {
+            mainCat = data_.advtCategoryCode.split("-")[0].trim();
+            subCat = data_.advtCategoryCode.split("-")[1].trim();
+            subSpinner = new SpinnerAdapter(CreateAdvertActivity.this, new String[]{subCat}, subIcons_);
+            spinnerSubCategory_.setAdapter(subSpinner);
+        } else {
+            mainCat = data_.advtCategoryCode;
+            spinnerSubCategory_.setVisibility(View.GONE);
+        }
+        adapterSpinner = new SpinnerAdapter(CreateAdvertActivity.this, new String[]{mainCat}, categoryIcons_);
+        spinnerMainCategory_.setAdapter(adapterSpinner);
+
+        edtDescription_.setEnabled(false);
+        edtDescription_.setTextColor(Color.BLACK);
+        edtMail_.setEnabled(false);
+        edtMail_.setTextColor(Color.BLACK);
+        edtPhone_.setEnabled(false);
+        edtPhone_.setTextColor(Color.BLACK);
+        edtPrice_.setEnabled(false);
+        edtPrice_.setTextColor(Color.BLACK);
+        spinnerSubCategory_.setEnabled(false);
+        spinnerMainCategory_.setEnabled(false);
+
+        btnCreateAdvertTakePhoto.setVisibility(View.GONE);
+        saveAdvert.setVisibility(View.GONE);
     }
 }

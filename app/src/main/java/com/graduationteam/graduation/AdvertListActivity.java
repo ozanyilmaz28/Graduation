@@ -214,6 +214,16 @@ public class AdvertListActivity extends AppCompatActivity {
                                 return false;
                             }
                         });
+
+                        listAdvert_.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent i = new Intent(getApplicationContext(), CreateAdvertActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.putExtra("AdvertWithDetail", (Advert) parent.getItemAtPosition(position));
+                                startActivity(i);
+                            }
+                        });
                     }
                 } else {
                     Toast.makeText(AdvertListActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
