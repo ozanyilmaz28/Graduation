@@ -16,13 +16,17 @@
     <string name="CreateAdvert">İlan Ver</string>
     <string name="btnSettingsUpdate">Bilgi Güncelle</string>
     <string name="btnSettingsLogOut">Çıkış</string>
+    <string name="CloseAdvert">İlanı Kapat</string>
+    <string name="AreYouSureToCloseAdvert">İlanı Kapatmak İstediğinize Emin Misiniz?</string>
+    <string name="Yes">Evet</string>
+    <string name="No">Hayır</string>
 
     <string-array name="MainCategories">
         <item>Ana Kategori Seçiniz...</item>
         <item>Kiralik Ev</item>
         <item>Mobilya</item>
-        <item>Ev Arkadaşı</item>
-        <item>Elektronik Eşya</item>
+        <item>Ev Arkadasi</item>
+        <item>Elektronik Esya</item>
         <item>Kitap</item>
         <item>Diger</item>
     </string-array>

@@ -60,32 +60,31 @@
 
             <TextView
                 android:id="@+id/txtAdvertListPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
 
             <TextView
                 android:id="@+id/txtAdvertListMail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
 
             <TextView
                 android:id="@+id/txtAdvertListID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/txtAdvertListPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:layout_marginRight="3dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
 
     </RelativeLayout>

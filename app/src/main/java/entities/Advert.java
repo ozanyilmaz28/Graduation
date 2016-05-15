@@ -12,6 +12,15 @@ public class Advert {
     public String advtCategoryCode;
     public String advtImageLink;
     public int advtPrice;
+    public Boolean advtIsOpen;
+
+    public Boolean getAdvtIsOpen() {
+        return advtIsOpen;
+    }
+
+    public void setAdvtIsOpen(Boolean advtIsOpen) {
+        this.advtIsOpen = advtIsOpen;
+    }
 
     public int getAdvtID() {
         return advtID;

@@ -1,22 +1,20 @@
 package com.graduationteam.graduation;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -28,6 +26,7 @@ import java.util.List;
 import adapters.AdvertAdapter;
 import adapters.SpinnerAdapter;
 import entities.Advert;
+import entities.KeyCodes;
 import entities.UserInfo;
 import entities.WebServiceMethod;
 
@@ -52,11 +51,13 @@ public class AdvertListActivity extends AppCompatActivity {
     SpinnerAdapter adapterSpinner;
     ProgressDialog progressDialog;
     GetUserAdvertList task;
+    UpdateAdvertStatus taskUpdateStatus;
     WebServiceMethod method;
     int order_ = 0;
 
     String selectedSub = "";
     String[] cat;
+    long SelectedAdvertID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,7 +188,35 @@ public class AdvertListActivity extends AppCompatActivity {
                         }
                     });
 
+                    if(UserInfo.SelectedPage == KeyCodes.MainToMyPage)
+                    {
+                        listAdvert_.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                            @Override
+                            public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, long id) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                builder.setTitle(getResources().getString(R.string.CloseAdvert));
+                                builder.setMessage(getResources().getString(R.string.AreYouSureToCloseAdvert))
+                                        .setCancelable(false)
+                                        .setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                TextView txtListeIcerik = (TextView) view.findViewById(R.id.txtAdvertListID);
+                                                SelectedAdvertID = Long.parseLong(txtListeIcerik.getText().toString());
+                                                taskUpdateStatus = new UpdateAdvertStatus();
+                                                taskUpdateStatus.execute();
+                                            }
+                                        })
+                                        .setNegativeButton(getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog alert = builder.create();
+                                alert.show();
 
+                                return false;
+                            }
+                        });
+                    }
                 } else {
                     Toast.makeText(AdvertListActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
                     finish();
@@ -196,6 +225,51 @@ public class AdvertListActivity extends AppCompatActivity {
                 Toast.makeText(AdvertListActivity.this, "Web Servis ile Bağlantı Kurulamadı!", Toast.LENGTH_SHORT).show();
                 finish();
             }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(AdvertListActivity.this);
+            progressDialog.setMessage("İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    private class UpdateAdvertStatus extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                method = new WebServiceMethod("DoUpdateAdvertStatus", "Object");
+
+                method.request.addProperty("AdvertID_", SelectedAdvertID);
+                method.request.addProperty("IsOpen", false);
+
+                method.Method();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            progressDialog.dismiss();
+            if (method.intPropertyCount == 1) {
+                method.objResult = (SoapObject) method.objMain.getProperty(0);
+                if (Boolean.parseBoolean(method.objResult.getProperty("Success").toString())) {
+                    Toast.makeText(AdvertListActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(AdvertListActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
+                }
+            } else
+                Toast.makeText(AdvertListActivity.this, "Web Servis ile Bağlantı Kurulamadı!", Toast.LENGTH_SHORT).show();
         }
 
         @Override
