@@ -1,6 +1,8 @@
 package adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -17,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.graduationteam.graduation.CreateAdvertActivity;
 import com.graduationteam.graduation.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -104,7 +107,10 @@ public class ImageAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "You Clicked " + list_.get(position).getAdvtID(), Toast.LENGTH_LONG).show();
+                Intent i = new Intent(mContext, CreateAdvertActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra("", list_.get(position));
+                mContext.startActivity(i);
             }
         });
 

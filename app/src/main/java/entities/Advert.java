@@ -1,9 +1,11 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * Created by LA-173 on 28.04.2016.
  */
-public class Advert {
+public class Advert implements Serializable {
     public int advtID;
     public String advtDescription;
     public String advtDateTime;
