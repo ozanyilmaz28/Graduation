@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -230,7 +229,7 @@ public class AdvertListActivity extends AppCompatActivity {
                     finish();
                 }
             } else {
-                Toast.makeText(AdvertListActivity.this, "Web Servis ile Bağlantı Kurulamadı!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdvertListActivity.this, getResources().getString(R.string.WebServiceConnectionError), Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -238,7 +237,7 @@ public class AdvertListActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(AdvertListActivity.this);
-            progressDialog.setMessage("İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...");
+            progressDialog.setMessage(getResources().getString(R.string.Processing));
             progressDialog.show();
             progressDialog.setCancelable(false);
         }
@@ -279,14 +278,14 @@ public class AdvertListActivity extends AppCompatActivity {
                 task = new GetUserAdvertList();
                 task.execute();
             } else {
-                Toast.makeText(AdvertListActivity.this, "Web Servis ile Bağlantı Kurulamadı!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdvertListActivity.this, getResources().getString(R.string.WebServiceConnectionError), Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(AdvertListActivity.this);
-            progressDialog.setMessage("İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...");
+            progressDialog.setMessage(getResources().getString(R.string.Processing));
             progressDialog.show();
             progressDialog.setCancelable(false);
         }

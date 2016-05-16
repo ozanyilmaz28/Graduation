@@ -20,6 +20,24 @@
     <string name="AreYouSureToCloseAdvert">İlanı Kapatmak İstediğinize Emin Misiniz?</string>
     <string name="Yes">Evet</string>
     <string name="No">Hayır</string>
+    <string name="WebServiceConnectionError">Web Servis ile Bağlantı Kurulamadı!</string>
+    <string name="Processing">İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...</string>
+    <string name="IntentError">Intent Kullanım Hatası</string>
+    <string name="PriceCannotBeNull">Intent Kullanım Hatası</string>
+    <string name="PriceMustBeBiggerThanZero">Fiyat 0'dan büyük olmalıdır...</string>
+    <string name="PleaseEnterPhoneOrMail">Telefon numarası ya da email adresi giriniz...</string>
+    <string name="DescriptionMustBeAtLeast30Character">Açıklama en az 30 karakter olmalıdır...</string>
+    <string name="PleaseEnterDescription">Lütfen açıklama giriniz...</string>
+    <string name="PleaseSelectSubCategory">Lütfen alt kategori seçiniz...</string>
+    <string name="PleaseSelectMainCategory">Lütfen ana kategori seçiniz...</string>
+    <string name="PasswordCannotBeNull">Şifre Boş Bırakılamaz...</string>
+    <string name="UserNameCannotBeNull">Kullanıcı Adı Boş Bırakılamaz...</string>
+    <string name="PasswordMatchingError">Şifreler Eşleşmiyor...</string>
+    <string name="PasswordConfirmationCannotBeNull">Şifre Onayı Boş Bırakılamaz...</string>
+    <string name="PhoneNumberCannotBeNull">Telefon Numarası Boş Bırakılamaz...</string>
+    <string name="MailCannotBeNull">Mail Boş Bırakılamaz...</string>
+    <string name="NameSurnameCannotBeNull">Ad Soyad Boş Bırakılamaz...</string>
+    <string name="InvalidMail">Geçersiz Mail Formatı</string>
 
     <string-array name="MainCategories">
         <item>Ana Kategori Seçiniz...</item>

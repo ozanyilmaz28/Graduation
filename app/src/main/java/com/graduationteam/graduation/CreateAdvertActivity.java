@@ -1,6 +1,5 @@
 package com.graduationteam.graduation;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,8 +29,6 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -102,7 +98,7 @@ public class CreateAdvertActivity extends Activity {
             if (advtDataFromList != null)
                 doManageVisibility(advtDataFromList);
             else
-                Toast.makeText(CreateAdvertActivity.this, "Intent kullanım hatası!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.IntentError), Toast.LENGTH_SHORT).show();
 
         } else {
             spinnerSubCategory_.setVisibility(View.GONE);
@@ -279,13 +275,13 @@ public class CreateAdvertActivity extends Activity {
                     if (advertDescription_.length() >= 30) {
                         if ((!advertPhone_.equals(null) && !advertPhone_.equals("")) || (!advertMail_.equals(null) && !advertMail_.equals(""))) {
                             if ((advertPrice_.equals(null) || advertPrice_.equals("")) && isPriceMandatory_) {
-                                Toast.makeText(CreateAdvertActivity.this, "Fiyat boş bırakılamaz...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.PriceCannotBeNull), Toast.LENGTH_SHORT).show();
                                 edtPrice_.requestFocus();
                             } else {
                                 if (!isPriceMandatory_)
                                     advertPrice_ = "0";
                                 if (Integer.parseInt(advertPrice_) <= 0 && isPriceMandatory_) {
-                                    Toast.makeText(CreateAdvertActivity.this, "Fiyat 0'dan büyük olmalıdır...", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.PriceMustBeBiggerThanZero), Toast.LENGTH_SHORT).show();
                                     edtPrice_.requestFocus();
                                 } else {
                                     task = new SaveAdvert();
@@ -293,24 +289,24 @@ public class CreateAdvertActivity extends Activity {
                                 }
                             }
                         } else {
-                            Toast.makeText(CreateAdvertActivity.this, "Telefon numarası ya da email adresi giriniz...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.PleaseEnterPhoneOrMail), Toast.LENGTH_SHORT).show();
                             edtPhone_.requestFocus();
                         }
                     } else {
-                        Toast.makeText(CreateAdvertActivity.this, "Açıklama en az 30 karakter olmalıdır...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.DescriptionMustBeAtLeast30Character), Toast.LENGTH_SHORT).show();
                         edtDescription_.requestFocus();
                     }
                 } else {
-                    Toast.makeText(CreateAdvertActivity.this, "Lütfen açıklama giriniz...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.PleaseEnterDescription), Toast.LENGTH_SHORT).show();
                     edtDescription_.requestFocus();
                 }
             } else {
-                Toast.makeText(CreateAdvertActivity.this, "Lütfen alt kategori seçiniz...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.PleaseSelectSubCategory), Toast.LENGTH_SHORT).show();
                 spinnerSubCategory_.requestFocus();
             }
 
         } else {
-            Toast.makeText(CreateAdvertActivity.this, "Lütfen ana kategori seçiniz...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.PleaseSelectMainCategory), Toast.LENGTH_SHORT).show();
             spinnerMainCategory_.requestFocus();
         }
     }
@@ -355,13 +351,13 @@ public class CreateAdvertActivity extends Activity {
                     Toast.makeText(CreateAdvertActivity.this, method.objResult.getProperty("Message").toString(), Toast.LENGTH_SHORT).show();
                 }
             } else
-                Toast.makeText(CreateAdvertActivity.this, "Web Servis ile Bağlantı Kurulamadı!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.WebServiceConnectionError), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(CreateAdvertActivity.this);
-            progressDialog.setMessage("İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...");
+            progressDialog.setMessage(getResources().getString(R.string.Processing));
             progressDialog.show();
             progressDialog.setCancelable(false);
         }
@@ -382,9 +378,9 @@ public class CreateAdvertActivity extends Activity {
                     .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
                     .build();
 
-            LinearLayout linearLayout_ = (LinearLayout)findViewById(R.id.createAdvertLinearLayout);
-            linearLayout_.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-            imgBtnTakePhoto.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout linearLayout_ = (LinearLayout) findViewById(R.id.createAdvertLinearLayout);
+            linearLayout_.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            imgBtnTakePhoto.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             imageLoader.displayImage(data_.getAdvtImageLink(), imgBtnTakePhoto, options);
         }
 

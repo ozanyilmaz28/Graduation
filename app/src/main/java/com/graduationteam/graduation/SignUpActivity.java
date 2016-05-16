@@ -92,39 +92,39 @@ public class SignUpActivity extends Activity {
                                         task = new SignUpMethod();
                                         task.execute();
                                     } else {
-                                        Toast.makeText(getApplicationContext(), "Şifreler Eşleşmiyor!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.PasswordMatchingError), Toast.LENGTH_SHORT).show();
                                         edtPass.setText("");
                                         edtPassConfirm.setText("");
                                         edtPass.requestFocus();
                                     }
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Şifre Onay Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.PasswordConfirmationCannotBeNull), Toast.LENGTH_SHORT).show();
                                     edtPassConfirm.requestFocus();
                                 }
                             } else {
-                                Toast.makeText(getApplicationContext(), "Şifre Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.PasswordCannotBeNull), Toast.LENGTH_SHORT).show();
                                 edtPass.requestFocus();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "Telefon Numarası Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.PhoneNumberCannotBeNull), Toast.LENGTH_SHORT).show();
                             edtPhone.requestFocus();
                         }
                     } else {
-                        Toast.makeText(getApplicationContext(), "Geçersiz e-Mail Formatı!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.InvalidMail), Toast.LENGTH_SHORT).show();
                         edtMail.setText("");
                         edtMail.requestFocus();
 
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "e-Mail Adresi Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.MailCannotBeNull), Toast.LENGTH_SHORT).show();
                     edtMail.requestFocus();
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Ad Soyad Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.NameSurnameCannotBeNull), Toast.LENGTH_SHORT).show();
                 edtUsername.requestFocus();
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Kullanıcı Adı Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.UserNameCannotBeNull), Toast.LENGTH_SHORT).show();
             edtUsername.requestFocus();
         }
     }
@@ -190,13 +190,13 @@ public class SignUpActivity extends Activity {
                     edtUsername.requestFocus();
                 }
             } else
-                Toast.makeText(SignUpActivity.this, "Web Service'ten Cevap Alınamıyor!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, getResources().getString(R.string.WebServiceConnectionError), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(SignUpActivity.this);
-            progressDialog.setMessage("İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...");
+            progressDialog.setMessage(getResources().getString(R.string.Processing));
             progressDialog.show();
             progressDialog.setCancelable(false);
         }

@@ -69,11 +69,11 @@ public class LogInActivity extends AppCompatActivity {
                 task = new LoginMethod();
                 task.execute();
             } else {
-                Toast.makeText(LogInActivity.this, "Şifre Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LogInActivity.this, getResources().getString(R.string.PasswordCannotBeNull), Toast.LENGTH_SHORT).show();
                 txtPassword.requestFocus();
             }
         } else {
-            Toast.makeText(LogInActivity.this, "Kullanıcı Adı Boş Bırakılamaz!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LogInActivity.this, getResources().getString(R.string.UserNameCannotBeNull), Toast.LENGTH_SHORT).show();
             txtUserNameOrEmail.requestFocus();
         }
     }
@@ -143,13 +143,13 @@ public class LogInActivity extends AppCompatActivity {
                     txtPassword.requestFocus();
                 }
             } else
-                Toast.makeText(LogInActivity.this, "Web Service'ten Cevap Alınamıyor!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LogInActivity.this, getResources().getString(R.string.WebServiceConnectionError), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(LogInActivity.this);
-            progressDialog.setMessage("İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...");
+            progressDialog.setMessage(getResources().getString(R.string.Processing));
             progressDialog.show();
             progressDialog.setCancelable(false);
         }

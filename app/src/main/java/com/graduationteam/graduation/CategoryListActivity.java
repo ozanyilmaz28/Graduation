@@ -18,12 +18,7 @@ public class CategoryListActivity extends Activity {
             R.drawable.iconcategorybook,
             R.drawable.iconcategoryothers};
 
-    public static String[] categoryTexts_ = {"Kiralık Ev",
-            "Ev Eşyası",
-            "Ev Arkadaşı",
-            "Elektronik Eşya",
-            "Kitap",
-            "Diğer"};
+    public static String[] categoryTexts_;
 
     ListView lv;
     Context context;
@@ -34,7 +29,10 @@ public class CategoryListActivity extends Activity {
         setContentView(R.layout.activity_category_list);
 
         context = this;
-
+        int size_ = getResources().getStringArray(R.array.MainCategories).length;
+        categoryTexts_ = new String[size_ - 1];
+        for (int i = 1; i < size_; i++)
+            categoryTexts_[i - 1] = getResources().getStringArray(R.array.MainCategories)[i];
         lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(new CategoryAdapter(this, categoryTexts_, categoryIcons_));
 

@@ -166,14 +166,14 @@ public class MainList extends AppCompatActivity {
                 }
             } else {
                 progressDialog.dismiss();
-                Toast.makeText(MainList.this, "Web Service'ten Cevap Alınamıyor!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainList.this, getResources().getString(R.string.WebServiceConnectionError), Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(MainList.this);
-            progressDialog.setMessage("İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...");
+            progressDialog.setMessage(getResources().getString(R.string.Processing));
             progressDialog.show();
             progressDialog.setCancelable(false);
         }
