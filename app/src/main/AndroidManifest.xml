@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -24,12 +24,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CategoryListActivity" />
-        <activity android:name=".CreateAdvertActivity" />
-        <activity android:name=".LogInActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".AdvertListActivity"></activity>
+        <activity
+            android:name=".CategoryListActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".CreateAdvertActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".LogInActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".SignUpActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".SettingsActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".AdvertListActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

@@ -24,7 +24,7 @@
     <string name="Processing">İşlem Gerçekleştiriliyor. Lütfen Bekleyiniz...</string>
     <string name="IntentError">Intent Kullanım Hatası</string>
     <string name="PriceCannotBeNull">Intent Kullanım Hatası</string>
-    <string name="PriceMustBeBiggerThanZero">Fiyat 0'dan büyük olmalıdır...</string>
+    <string name="PriceMustBeBiggerThanZero">Fiyat sıfırdan büyük olmalıdır...</string>
     <string name="PleaseEnterPhoneOrMail">Telefon numarası ya da email adresi giriniz...</string>
     <string name="DescriptionMustBeAtLeast30Character">Açıklama en az 30 karakter olmalıdır...</string>
     <string name="PleaseEnterDescription">Lütfen açıklama giriniz...</string>
@@ -38,6 +38,12 @@
     <string name="MailCannotBeNull">Mail Boş Bırakılamaz...</string>
     <string name="NameSurnameCannotBeNull">Ad Soyad Boş Bırakılamaz...</string>
     <string name="InvalidMail">Geçersiz Mail Formatı</string>
+    <string name="Language">Dil</string>
+
+    <string-array name="Language">
+        <item>Turkce</item>
+        <item>Ingilizce</item>
+    </string-array>
 
     <string-array name="MainCategories">
         <item>Ana Kategori Seçiniz...</item>

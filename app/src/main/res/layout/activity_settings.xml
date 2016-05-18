@@ -79,7 +79,6 @@
                 android:maxLength="15"
                 android:singleLine="true" />
 
-
         </LinearLayout>
 
         <LinearLayout

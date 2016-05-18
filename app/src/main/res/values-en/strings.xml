@@ -1,0 +1,96 @@
+<resources>
+    <string name="app_name">Easy Sale</string>
+    <string name="CreateAdvertViewPleaseEnterDescription">Please enter description...(Max 1000)</string>
+    <string name="CreateAdvertViewUseLocationInfo">Use Location Info...</string>
+    <string name="CreateAdvertViewPrice">Price(TL)...</string>
+    <string name="CreateAdvertViewUseDifferentPhone">Use Different Phone Number...</string>
+    <string name="CreateAdvertViewUseDifferentMail">Use Different Mail...</string>
+    <string name="SignUp"><u>Sign Up!</u></string>
+    <string name="UserName">User Name</string>
+    <string name="Password">Password</string>
+    <string name="PasswordConfirm">Password Confirm</string>
+    <string name="LogIn">Log In</string>
+    <string name="Email">Mail Address</string>
+    <string name="Phone">Phone</string>
+    <string name="NameSurname">Name Surname</string>
+    <string name="CreateAdvert">Create Advert</string>
+    <string name="btnSettingsUpdate">Update Information</string>
+    <string name="btnSettingsLogOut">Log Out</string>
+    <string name="CloseAdvert">Close Advert</string>
+    <string name="AreYouSureToCloseAdvert">Are you sure about closing advert?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="WebServiceConnectionError">Web Service Connection Error!</string>
+    <string name="Processing">Processing... Please Wait...</string>
+    <string name="IntentError">Intent Using Error</string>
+    <string name="PriceCannotBeNull">Price cannot be null</string>
+    <string name="PriceMustBeBiggerThanZero">Price must be bigger than zero</string>
+    <string name="PleaseEnterPhoneOrMail">Please enter phone number or mail...</string>
+    <string name="DescriptionMustBeAtLeast30Character">Description must be bigger thane 30 characters...</string>
+    <string name="PleaseEnterDescription">Please enter description...</string>
+    <string name="PleaseSelectSubCategory">Please select sub category...</string>
+    <string name="PleaseSelectMainCategory">Please select main category...</string>
+    <string name="PasswordCannotBeNull">Password cannot be null...</string>
+    <string name="UserNameCannotBeNull">Username cannot be null...</string>
+    <string name="PasswordMatchingError">Passwords do not matching...</string>
+    <string name="PasswordConfirmationCannotBeNull">Password confirmation cannot be null...</string>
+    <string name="PhoneNumberCannotBeNull">Telefon Numarası Boş Bırakılamaz...</string>
+    <string name="MailCannotBeNull">Mail cannot be null...</string>
+    <string name="NameSurnameCannotBeNull">Name surname cannot be null...</string>
+    <string name="InvalidMail">Invalid Mail Address</string>
+    <string name="Language">Language</string>
+
+    <string-array name="MainCategories">
+        <item>Select Main Category...</item>
+        <item>Kiralik Ev</item>
+        <item>Mobilya</item>
+        <item>Ev Arkadasi</item>
+        <item>Elektronik Esya</item>
+        <item>Kitap</item>
+        <item>Diger</item>
+    </string-array>
+
+    <string-array name="SubCategories2">
+        <item>Alt Kategori Seçiniz...</item>
+        <item>Kanepe</item>
+        <item>Yatak</item>
+        <item>Baza</item>
+        <item>Gardirop</item>
+    </string-array>
+
+    <string-array name="SubCategories3">
+        <item>Alt Kategori Seçiniz...</item>
+        <item>Farketmez</item>
+        <item>Kadin</item>
+        <item>Erkek</item>
+    </string-array>
+
+    <string-array name="SubCategories4">
+        <item>Alt Kategori Seçiniz...</item>
+        <item>Cep Telefonu</item>
+        <item>Dizustu Bilgisayar</item>
+        <item>Masaustu Bilgisayar</item>
+        <item>Televizyon</item>
+        <item>Buzdolabi</item>
+        <item>Camasir Makinesi</item>
+        <item>Bulasik Makinesi</item>
+    </string-array>
+
+    <string-array name="SubCategories5">
+        <item>Alt Kategori Seçiniz...</item>
+        <item>Ders Kitabi</item>
+        <item>Okuma Kitabi</item>
+    </string-array>
+
+    <array name="MainCategoriyIcons">
+        <item>@drawable/iconcategorypleaseselect</item>
+        <item>@drawable/iconcategoryhouse</item>
+        <item>@drawable/iconcategoryfurniture</item>
+        <item>@drawable/iconcategoryhomemate</item>
+        <item>@drawable/iconcategoryelectronic</item>
+        <item>@drawable/iconcategorybook</item>
+        <item>@drawable/iconcategoryothers</item>
+    </array>
+
+
+</resources>
