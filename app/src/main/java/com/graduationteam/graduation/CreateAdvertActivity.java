@@ -39,6 +39,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import adapters.SpinnerAdapter;
 import entities.Advert;
@@ -292,24 +293,24 @@ public class CreateAdvertActivity extends Activity {
                                 }
                             }
                         } else {
-                            Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.PleaseEnterPhoneOrMail), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.PleaseEnterPhoneOrMail), Toast.LENGTH_SHORT).show();
                             edtPhone_.requestFocus();
                         }
                     } else {
-                        Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.DescriptionMustBeAtLeast30Character), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.DescriptionMustBeAtLeast30Character), Toast.LENGTH_SHORT).show();
                         edtDescription_.requestFocus();
                     }
                 } else {
-                    Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.PleaseEnterDescription), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.PleaseEnterDescription), Toast.LENGTH_SHORT).show();
                     edtDescription_.requestFocus();
                 }
             } else {
-                Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.PleaseSelectSubCategory), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.PleaseSelectSubCategory), Toast.LENGTH_SHORT).show();
                 spinnerSubCategory_.requestFocus();
             }
 
         } else {
-            Toast.makeText(CreateAdvertActivity.this,  getResources().getString(R.string.PleaseSelectMainCategory), Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateAdvertActivity.this, getResources().getString(R.string.PleaseSelectMainCategory), Toast.LENGTH_SHORT).show();
             spinnerMainCategory_.requestFocus();
         }
     }
@@ -332,7 +333,10 @@ public class CreateAdvertActivity extends Activity {
                 else
                     method.request.addProperty("Image_", "");
                 method.request.addProperty("Price_", Integer.parseInt(advertPrice_));
-                method.request.addProperty("TR_", true);
+                if (getResources().getConfiguration().locale == new Locale("tr"))
+                    method.request.addProperty("TR", true);
+                else
+                    method.request.addProperty("TR", false);
 
                 method.Method();
 

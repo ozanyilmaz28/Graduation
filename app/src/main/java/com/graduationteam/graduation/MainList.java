@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import adapters.AdvertAdapter;
 import adapters.ImageAdapter;
@@ -117,7 +118,10 @@ public class MainList extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 method = new WebServiceMethod("GetTop15AdvertList", "Object");
-
+                if (getResources().getConfiguration().locale == new Locale("tr"))
+                    method.request.addProperty("TR", true);
+                else
+                    method.request.addProperty("TR", false);
                 method.Method();
 
             } catch (Exception e) {

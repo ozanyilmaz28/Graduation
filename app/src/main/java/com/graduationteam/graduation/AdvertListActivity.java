@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import adapters.AdvertAdapter;
 import adapters.SpinnerAdapter;
@@ -103,6 +104,10 @@ public class AdvertListActivity extends AppCompatActivity {
                 else {
                     method.request.addProperty("AdvertMainTypeID_", UserInfo.SelectedMainCategory);
                 }
+                if (getResources().getConfiguration().locale == new Locale("tr"))
+                    method.request.addProperty("TR", true);
+                else
+                    method.request.addProperty("TR", false);
 
                 method.Method();
 
@@ -255,6 +260,10 @@ public class AdvertListActivity extends AppCompatActivity {
 
                 method.request.addProperty("AdvertID_", SelectedAdvertID);
                 method.request.addProperty("IsOpen", false);
+                if (getResources().getConfiguration().locale == new Locale("tr"))
+                    method.request.addProperty("TR", true);
+                else
+                    method.request.addProperty("TR", false);
 
                 method.Method();
 

@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
 
+import java.util.Locale;
+
 import controller.Controller;
 import entities.KeyCodes;
 import entities.UserInfo;
@@ -141,6 +143,10 @@ public class SignUpActivity extends Activity {
                 method.request.addProperty("Email_", eMail_);
                 method.request.addProperty("Phone_", phone_);
                 method.request.addProperty("Password_", pass_);
+                if (getResources().getConfiguration().locale == new Locale("tr"))
+                    method.request.addProperty("TR", true);
+                else
+                    method.request.addProperty("TR", false);
 
                 method.Method();
 

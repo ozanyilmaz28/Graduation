@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
 
+import java.util.Locale;
+
 import entities.KeyCodes;
 import entities.UserInfo;
 import entities.WebServiceMethod;
@@ -86,6 +88,10 @@ public class LogInActivity extends AppCompatActivity {
 
                 method.request.addProperty("UsernameOrMail_", userNameOrEmail);
                 method.request.addProperty("Password_", password);
+                if (getResources().getConfiguration().locale == new Locale("tr"))
+                    method.request.addProperty("TR", true);
+                else
+                    method.request.addProperty("TR", false);
 
                 method.Method();
 
