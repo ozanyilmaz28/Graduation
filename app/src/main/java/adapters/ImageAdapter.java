@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class ImageAdapter extends BaseAdapter {
     List<Advert> list_;
     String imageLink;
     Bitmap bitmap_;
+    int imgWidth_ = 0;
+    int imgHeight_ = 0;
 
     ImageLoader imageLoader;
     DisplayImageOptions options;
@@ -94,13 +97,18 @@ public class ImageAdapter extends BaseAdapter {
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int imgWidth_ = ((size.x) * 3 / 10);
-        int imgHeight = (((size.y) - 60) * 15 / 100);
+        if (size.y > size.x) {
+            imgWidth_ = ((size.x) * 28 / 100);
+            imgHeight_ = (((size.y) - 60) * 14 / 100);
+        } else {
+            imgWidth_ = ((size.y) * 28 / 100);
+            imgHeight_ = (((size.x) - 60) * 14 / 100);
+        }
 
         imageView.setImageResource(mThumbIds[0]);
         imageView.setAdjustViewBounds(true);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        GridView.LayoutParams params = new GridView.LayoutParams(imgWidth_, imgHeight);
+        GridView.LayoutParams params = new GridView.LayoutParams(imgWidth_, imgHeight_);
         imageView.setLayoutParams(params);
 
         if (list_ != null && list_.size() > 0 && !String.valueOf(imageLink).equals("-")) {
@@ -121,7 +129,7 @@ public class ImageAdapter extends BaseAdapter {
         });
 
         if (bitmap_ != null) {
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap_, imgWidth_, imgHeight, true);
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap_, imgWidth_, imgHeight_, true);
             imageView.setImageBitmap(resizedBitmap);
         } else {
             imageLoader.displayImage(imageLink, imageView, options);

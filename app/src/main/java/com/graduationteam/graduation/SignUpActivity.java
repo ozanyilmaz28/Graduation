@@ -61,6 +61,7 @@ public class SignUpActivity extends Activity {
             edtPass.setText(UserInfo.Password);
             edtPassConfirm.setText(UserInfo.Password);
             edtUsername.setEnabled(false);
+            singUp.setText(getResources().getString(R.string.btnSettingsUpdate));
         } else
             isNewUser = true;
 
