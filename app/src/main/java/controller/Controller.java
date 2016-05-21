@@ -9,9 +9,6 @@ import java.util.regex.Pattern;
 
 import entities.UserInfo;
 
-/**
- * Created by LA-173 on 24.03.2016.
- */
 public class Controller {
 
     public boolean isUserLoggedIn(Context con_) {

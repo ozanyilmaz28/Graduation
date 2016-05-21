@@ -15,9 +15,6 @@ import com.graduationteam.graduation.R;
 
 import entities.UserInfo;
 
-/**
- * Created by LA-173 on 20.03.2016.
- */
 public class CategoryAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     String[] result;

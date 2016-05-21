@@ -24,9 +24,6 @@ import entities.Advert;
 import entities.KeyCodes;
 import entities.UserInfo;
 
-/**
- * Created by LA-173 on 20.03.2016.
- */
 public class AdvertAdapter extends ArrayAdapter<Advert> {
     private static LayoutInflater inflater = null;
     private Context mContext;

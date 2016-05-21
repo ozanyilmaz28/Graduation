@@ -12,9 +12,6 @@ import android.widget.TextView;
 import com.graduationteam.graduation.CreateAdvertActivity;
 import com.graduationteam.graduation.R;
 
-/**
- * Created by LA-173 on 20.03.2016.
- */
 public class SpinnerAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     String[] result;
