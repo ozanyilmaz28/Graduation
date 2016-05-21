@@ -87,7 +87,7 @@ public class AdvertListActivity extends AppCompatActivity {
                     cat[0] = getResources().getStringArray(R.array.MainCategories)[6];
                 subCategory_.setEnabled(false);
             }
-            adapterSpinner = new SpinnerAdapter(AdvertListActivity.this, cat, categoryIcons_);
+            adapterSpinner = new SpinnerAdapter(AdvertListActivity.this, cat, subIcons_);
         }
         subCategory_.setAdapter(adapterSpinner);
         task = new GetUserAdvertList();

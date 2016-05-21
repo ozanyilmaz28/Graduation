@@ -28,20 +28,35 @@ public class ImageAdapter extends BaseAdapter {
     List<Advert> list_;
     String imageLink;
     Bitmap bitmap_;
-    ImageLoader imageLoader;
 
+    ImageLoader imageLoader;
+    DisplayImageOptions options;
     public Integer[] mThumbIds = {
             R.drawable.iconmainlistnotfoundbigger
     };
     private Context mContext;
 
     public ImageAdapter(Context c) {
+        options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .considerExifParams(true)
+                .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
+                .build();
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(c));
         mContext = c;
     }
 
     public ImageAdapter(Context c, List<Advert> advertList) {
+        options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .considerExifParams(true)
+                .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
+                .build();
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(c));
         list_ = advertList;
@@ -109,13 +124,6 @@ public class ImageAdapter extends BaseAdapter {
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap_, imgWidth_, imgHeight, true);
             imageView.setImageBitmap(resizedBitmap);
         } else {
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .cacheInMemory(true)
-                    .cacheOnDisk(true)
-                    .imageScaleType(ImageScaleType.EXACTLY)
-                    .considerExifParams(true)
-                    .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
-                    .build();
             imageLoader.displayImage(imageLink, imageView, options);
         }
         return imageView;

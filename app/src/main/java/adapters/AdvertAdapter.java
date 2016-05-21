@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.graduationteam.graduation.CreateAdvertActivity;
 import com.graduationteam.graduation.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -27,15 +29,24 @@ import entities.UserInfo;
  */
 public class AdvertAdapter extends ArrayAdapter<Advert> {
     private static LayoutInflater inflater = null;
-    Context context;
+    private Context mContext;
     String url_ = "";
-
+    DisplayImageOptions options;
     ImageLoader imageLoader;
 
     public AdvertAdapter(Context context, int resource,
                          List<Advert> objects) {
 
         super(context, resource, objects);
+        options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .considerExifParams(true)
+                .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
+                        //.displayer(new RoundedBitmapDisplayer(15))
+                .build();
+        mContext = context;
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(context));
     }
@@ -86,16 +97,19 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
 
         if (!String.valueOf(adverts.getAdvtImageLink()).equals("-") && !String.valueOf(adverts.getAdvtImageLink()).equals("")) {
             url_ = adverts.getAdvtImageLink().toString();
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .cacheInMemory(true)
-                    .cacheOnDisk(true)
-                    .imageScaleType(ImageScaleType.EXACTLY)
-                    .considerExifParams(true)
-                    .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
-                            //.displayer(new RoundedBitmapDisplayer(15))
-                    .build();
             imageLoader.displayImage(url_, imgButton, options);
         }
+
+        myRow.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, CreateAdvertActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra("AdvertWithDetail", adverts);
+                mContext.startActivity(i);
+            }
+        });
 
         return myRow;
     }

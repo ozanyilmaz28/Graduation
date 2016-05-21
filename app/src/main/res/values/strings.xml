@@ -61,6 +61,7 @@
         <item>Yatak</item>
         <item>Baza</item>
         <item>Gardirop</item>
+        <item>Diger</item>
     </string-array>
 
     <string-array name="SubCategories3">
@@ -79,6 +80,7 @@
         <item>Buzdolabi</item>
         <item>Camasir Makinesi</item>
         <item>Bulasik Makinesi</item>
+        <item>Diger</item>
     </string-array>
 
     <string-array name="SubCategories5">
