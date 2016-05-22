@@ -28,21 +28,13 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
     private static LayoutInflater inflater = null;
     private Context mContext;
     String url_ = "";
-    DisplayImageOptions options;
+
     ImageLoader imageLoader;
 
     public AdvertAdapter(Context context, int resource,
                          List<Advert> objects) {
 
         super(context, resource, objects);
-        options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .considerExifParams(true)
-                .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
-                        //.displayer(new RoundedBitmapDisplayer(15))
-                .build();
         mContext = context;
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(context));
@@ -94,10 +86,18 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
 
         if (!String.valueOf(adverts.getAdvtImageLink()).equals("-") && !String.valueOf(adverts.getAdvtImageLink()).equals("")) {
             url_ = adverts.getAdvtImageLink().toString();
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .imageScaleType(ImageScaleType.EXACTLY)
+                    .considerExifParams(true)
+                    .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
+                            //.displayer(new RoundedBitmapDisplayer(15))
+                    .build();
             imageLoader.displayImage(url_, imgButton, options);
         }
 
-        myRow.setOnClickListener(new View.OnClickListener() {
+        /*myRow.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -106,7 +106,7 @@ public class AdvertAdapter extends ArrayAdapter<Advert> {
                 i.putExtra("AdvertWithDetail", adverts);
                 mContext.startActivity(i);
             }
-        });
+        });*/
 
         return myRow;
     }

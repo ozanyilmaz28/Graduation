@@ -40,26 +40,13 @@ public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
     public ImageAdapter(Context c) {
-        options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .considerExifParams(true)
-                .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
-                .build();
+
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(c));
         mContext = c;
     }
 
     public ImageAdapter(Context c, List<Advert> advertList) {
-        options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .considerExifParams(true)
-                .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
-                .build();
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(c));
         list_ = advertList;
@@ -132,6 +119,13 @@ public class ImageAdapter extends BaseAdapter {
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap_, imgWidth_, imgHeight_, true);
             imageView.setImageBitmap(resizedBitmap);
         } else {
+            options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .imageScaleType(ImageScaleType.EXACTLY)
+                    .considerExifParams(true)
+                    .showImageOnLoading(R.drawable.iconmainlistnotfoundbigger)
+                    .build();
             imageLoader.displayImage(imageLink, imageView, options);
         }
         return imageView;

@@ -59,6 +59,7 @@ public class MainList extends AppCompatActivity {
         btnCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserInfo.SelectedPage = KeyCodes.MainToAdvertList;
                 intent = new Intent(MainList.this, CategoryListActivity.class);
                 startActivity(intent);
 

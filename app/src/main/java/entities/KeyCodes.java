@@ -8,4 +8,5 @@ public class KeyCodes {
     public static int MainToSettings = 3;
     public static int SettingsToSingUp = 4;
     public static int LogInToSingUp = 5;
+    public static int MainToAdvertList = 6;
 }
